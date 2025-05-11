@@ -8,5 +8,6 @@ export function NavBar() {
             <Image src={imagine} alt={"icon"} width={50} height={50} ></Image>
             <p className={"text-2xl font-semibold"}>NeuroVision</p>
         </div>
-    )
+    );
 }
+///

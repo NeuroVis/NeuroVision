@@ -5,10 +5,7 @@ import Image from "next/image";
 import {Button} from "@/components/ui/button";
 import {Minus, Play, Plus, RotateCcw, SkipForward} from "lucide-react";
 import Scrollable from "@/components/scrollable";
-import Neuron from "@/components/neurons";
-import NeuralNetworkFlow from "@/components/test";
-import Flow from "@/components/test";
-
+import NeuralNetworkEditor from "@/components/test";
 
 
 export default function Home() {
@@ -57,20 +54,24 @@ export default function Home() {
                   <Button className={"w-[170px] rounded-full"}>REGENERATE</Button>
               </div>
               <div className={"flex flex-col"}>
-                  <div className={"flex flex-row justify-between"}>
+                  <div className={"flex flex-row justify-between "}>
                       <div className={"flex flex-col gap-2 w-[160px]"}>
                           <p className={"text-md pl-2"}>FEATURES</p>
                           <p className={"text-sm"}>Which properties do you want to feed in?</p>
-                          <NeuralNetworkFlow/>
+
                       </div>
-                      <div className={"flex flex-row gap-2"}>
+                      <div className={"flex flex-row gap-2 pr-50"}>
                           <Plus className={"rounded-full bg-indigo-100 hover:bg-indigo-200"}/>
                           <Minus className={"rounded-full bg-indigo-100 hover:bg-indigo-200"}/>
                           <p className={"text-md pl-2"}>HIDDEN LAYERS</p>
                       </div>
                   </div>
+                  <NeuralNetworkEditor/>
+              {/*    <ReactFlowProvider>*/}
+
+              {/*      <Testplace/>*/}
+              {/*    </ReactFlowProvider>*/}
               </div>
-              <Flow/>
               <div className={"flex flex-col gap-2 w-[160px]"}>
                   <p className={"text-md pl-2"}>OUTPUT</p>
                   <p className={"text-sm"}>Test loss 0.433</p>
@@ -82,3 +83,4 @@ export default function Home() {
       
   );
 }
+///

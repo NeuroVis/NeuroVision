@@ -13,6 +13,7 @@ import {
 import 'reactflow/dist/style.css';
 import {Minus, Plus} from "lucide-react";
 import NeuralNetworkFlow from "@/components/test";
+import {isTopLayer} from "@floating-ui/utils/dom";
 
 const initialNodes: Node[] = [
     { id: 'x1', type: 'input', position: { x: 0, y: 100 }, data: { label: 'X₁' }, draggable: false , height:70, width:70, hidden: false},
@@ -32,7 +33,7 @@ export default function Neuron() {
     const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
 
     const onConnect = useCallback(
-        (params: Edge | any) => setEdges((eds) => addEdge({ ...params, animated: true }, eds)),
+        (params: Edge | any) => setEdges((eds) => addEdge({...params, animated: true}, eds)),
         [setEdges]
     );
 
@@ -70,19 +71,19 @@ export default function Neuron() {
             </div>
 
             <ReactFlow className={""}
-                nodes={nodes}
-                edges={edges}
-                onNodesChange={onNodesChange}
-                onEdgesChange={onEdgesChange}
-                onConnect={onConnect}
-                zoomOnScroll={false}
-                zoomOnPinch={false}
-                panOnScroll={false}
-                panOnDrag={false}
-                zoomOnDoubleClick={false}
-                nodesDraggable={false}
-                nodesConnectable={false}
-                fitView
+                       nodes={nodes}
+                       edges={edges}
+                       onNodesChange={onNodesChange}
+                       onEdgesChange={onEdgesChange}
+                       onConnect={onConnect}
+                       zoomOnScroll={false}
+                       zoomOnPinch={false}
+                       panOnScroll={false}
+                       panOnDrag={false}
+                       zoomOnDoubleClick={false}
+                       nodesDraggable={false}
+                       nodesConnectable={false}
+                       fitView
             >
                 <Background variant={BackgroundVariant.Lines}/>
             </ReactFlow>
