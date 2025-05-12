@@ -53,17 +53,16 @@ export default function Home() {
                   <Scrollable text1={"Batch size: "} min={1} max={30} defval={1} step={1}/>
                   <Button className={"w-[170px] rounded-full"}>REGENERATE</Button>
               </div>
-              <div className={"flex flex-col"}>
-                  <div className={"flex flex-row justify-between "}>
-                      <div className={"flex flex-col gap-2 w-[160px]"}>
-                          <p className={"text-md pl-2"}>FEATURES</p>
-                          <p className={"text-sm"}>Which properties do you want to feed in?</p>
+              <div className={"flex flex-col justify-center"}>
+                  <div className={"flex flex-row justify-between gap-60"}>
+                      {/*<div className={"flex flex-col gap-2 w-[160px]"}>*/}
+                      {/*    <p className={"text-md pl-2"}>FEATURES</p>*/}
+                      {/*    <p className={"text-sm"}>Which properties do you want to feed in?</p>*/}
 
-                      </div>
-                      <div className={"flex flex-row gap-2 pr-50"}>
-                          <Plus className={"rounded-full bg-indigo-100 hover:bg-indigo-200"}/>
-                          <Minus className={"rounded-full bg-indigo-100 hover:bg-indigo-200"}/>
-                          <p className={"text-md pl-2"}>HIDDEN LAYERS</p>
+                      {/*</div>*/}
+                      <div className={"flex flex-col gap-2  w-full px-20"}>
+                          <p className={"text-md self-center pl-2"}>HIDDEN LAYERS</p>
+                          <div className={" border-x-2 border-t-2 border-indigo-800 h-4"}></div>
                       </div>
                   </div>
                   <NeuralNetworkEditor/>

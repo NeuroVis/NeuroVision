@@ -2,11 +2,19 @@
 
 import React, { useReducer } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import ReactFlow, { Background, type Edge, type Node, Position } from 'reactflow';
+import ReactFlow, {
+  Background,
+  type Edge,
+  type Node,
+  Position,
+  NodeProps
+} from 'reactflow';
 
 import 'reactflow/dist/style.css';
-import {  BackgroundVariant } from '@xyflow/react';
+import { BackgroundVariant } from '@xyflow/react';
+import {Minus, Plus} from "lucide-react";
 
+// Types
 
 type NodeData = any;
 
@@ -17,12 +25,13 @@ type Layer = {
 
 type State = Layer[];
 
+// Reducer
 const reducer = (state: State, action: any): State => {
   switch (action.type) {
     case 'ADD_LAYER': {
       const newLayer: Layer = {
         id: uuidv4(),
-        nodes: []
+        nodes: [{ value: Math.random() }]
       };
       const index = action.payload?.index;
       if (index !== undefined && index >= 0 && index <= state.length) {
@@ -31,32 +40,29 @@ const reducer = (state: State, action: any): State => {
         return [...state, newLayer];
       }
     }
-
     case 'DELETE_LAYER':
       return state.filter(layer => layer.id !== action.payload.layerId);
-
     case 'ADD_NODE':
       return state.map(layer =>
-        layer.id === action.payload.layerId
-          ? { ...layer, nodes: [...layer.nodes, action.payload.node] }
-          : layer
+          layer.id === action.payload.layerId
+              ? { ...layer, nodes: [...layer.nodes, action.payload.node] }
+              : layer
       );
-
     case 'DELETE_NODE':
       return state.map(layer =>
-        layer.id === action.payload.layerId
-          ? {
-            ...layer,
-            nodes: layer.nodes.filter((_, i) => i !== action.payload.nodeIndex)
-          }
-          : layer
+          layer.id === action.payload.layerId
+              ? {
+                ...layer,
+                nodes: layer.nodes.filter((_, i) => i !== action.payload.nodeIndex)
+              }
+              : layer
       );
-
     default:
       return state;
   }
 };
 
+// Hook
 const useNeuralNetwork = () => {
   const [layers, dispatch] = useReducer(reducer, []);
 
@@ -85,76 +91,85 @@ const useNeuralNetwork = () => {
   };
 };
 
-function createNode(id: string, x: number, y: number, label: string = '2') {
+// Node creators
+function createNode(id: string, x: number, y: number, label: any = '2', extraData: any = {}, type?: string): Node {
   return {
     id,
+    type,
     position: { x, y },
-    data: { label },
+    data: { label, ...extraData },
     style: {
       borderRadius: '1000px',
       width: '40px',
-      height: '40px'
+      height: '40px',
+      cursor: extraData.isPlaceholder ? 'pointer' : 'default',
+      background: extraData.isPlaceholder ? '#eee' : undefined
     },
     targetPosition: Position.Left,
     sourcePosition: Position.Right
   };
 }
 
-function createEdge(id: string, source: string, target: string) {
+function createEdge(id: string, source: string, target: string): Edge {
   return { id, source, target };
 }
+
+// Custom Nodes
+const PlaceholderNode: React.FC<NodeProps> = ({ data }) => (
+    <div
+        style={{
+          width: '30px',
+          height: '30px',
+          borderRadius: '50%',
+          backgroundColor: '#eee',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          fontSize: '20px',
+          cursor: 'pointer'
+        }}
+    >
+      +
+    </div>
+);
+
+const LayerControlNode: React.FC<NodeProps> = ({ data }) => {
+  return (
+      <div
+          style={{
+            background: '#f5f5f5',
+            border: '1px solid #ccc',
+            borderRadius: '1000px',
+            fontSize: '16px '
+          }}
+          className="flex justify-center items-center rounded-full"
+      >
+        <button
+            style={{
+              padding: ' ',
+              fontSize: '14px',
+              backgroundColor: '#ff6961',
+              border: 'none',
+              borderRadius: '1000px',
+              color: 'white',
+              cursor: 'pointer'
+            }}
+            onClick={data.onClick}
+        ><Minus className={"rounded-full text-black bg-indigo-100 hover:bg-indigo-200 p-1"} style={{width: '40px', height: '40px'}}/>
+        </button>
+      </div>
+  );
+};
+
+const nodeTypes = {
+  placeholder: PlaceholderNode,
+  layerControl: LayerControlNode
+};
 
 const spaceBetweenNodes = 50;
 const spaceBetweenLayers = 200;
 
-function generateNodesFromLayers(layers: Layer[]) {
-  const nodes: Node[] = layers.flatMap(
-    (layer, layerIndex) =>
-      [...layer.nodes.flatMap((node, nodeIndex) =>
-        createNode(`${layerIndex}-${nodeIndex}`, layerIndex * spaceBetweenLayers, nodeIndex * spaceBetweenNodes)
-      ), createNode(`placeholder-${layerIndex}`, layerIndex * spaceBetweenLayers, layer.nodes.length * spaceBetweenNodes, '+')]
-  );
-
-  return nodes;
-}
-
-function generateEdgesFromLayers(layers: Layer[]) {
-  const edges: Edge[] = [];
-
-  for (let i = 0; i < layers.length - 1; i++) {
-    for (let firstLayerIndex = 0; firstLayerIndex < layers[i].nodes.length; firstLayerIndex++) {
-      for (let secondLayerIndex = 0; secondLayerIndex < layers[i + 1].nodes.length; secondLayerIndex++) {
-        edges.push(createEdge(`e-${i}-${firstLayerIndex}-${i + 1}-${secondLayerIndex}`, `${i}-${firstLayerIndex}`, `${i + 1}-${secondLayerIndex}`));
-      }
-    }
-  }
-
-  return edges;
-}
-
-const w = 3, h = 1.5;
-
-const initialNodes: Node[] = [
-  createNode('l1n1', 100 * w, 100 * h),
-  createNode('l1n2', 100 * w, 150 * h),
-  createNode('l1n3', 100 * w, 200 * h),
-  createNode('l1n4', 100 * w, 250 * h),
-  createNode('l1n5', 100 * w, 300 * h),
-
-  createNode('l2n1', 200 * w, 125 * h),
-  createNode('l2n2', 200 * w, 175 * h),
-  createNode('l2n3', 200 * w, 225 * h),
-  createNode('l2n4', 200 * w, 275 * h),
-
-  createNode('l3n1', 300 * w, 100 * h),
-  createNode('l3n2', 300 * w, 150 * h),
-  createNode('l3n3', 300 * w, 200 * h),
-  createNode('l3n4', 300 * w, 250 * h),
-  createNode('l3n5', 300 * w, 300 * h)
-];
-
-
-const NeuralNetworkEditor: React.FC = () => {
+function NeuralNetworkEditor() {
   const {
     layers,
     addLayer,
@@ -163,54 +178,88 @@ const NeuralNetworkEditor: React.FC = () => {
     deleteNodeFromLayer
   } = useNeuralNetwork();
 
-  console.log(layers);
+  function generateNodesFromLayers(layers: Layer[]) {
+    const nodes: Node[] = [];
 
-  console.log(generateNodesFromLayers(layers), generateEdgesFromLayers(layers));
+    layers.forEach((layer, layerIndex) => {
+      const layerX = layerIndex * spaceBetweenLayers;
 
-  // You can try actions here or render the structure
+      layer.nodes.forEach((_, nodeIndex) => {
+        nodes.push(createNode(`${layerIndex}-${nodeIndex}`, layerX, nodeIndex * spaceBetweenNodes));
+      });
+
+      nodes.push(
+          createNode(
+              `placeholder-${layerIndex}`,
+              layerX,
+              layer.nodes.length * spaceBetweenNodes,
+              <Plus className={"rounded-full text-black bg-indigo-100 hover:bg-indigo-200 p-1 te"} style={{width: '40px', height: '40px'}}/>,
+              {
+                isPlaceholder: true,
+                layerId: layer.id
+              },
+              'placeholder'
+          )
+      );
+
+      nodes.push(
+          createNode(
+              `control-${layerIndex}`,
+              layerX,
+              -60,
+              '',
+              {
+                onClick: () => {
+                  const lastIndex = layer.nodes.length - 1;
+                  if (lastIndex >= 0) {
+                    deleteNodeFromLayer(layer.id, lastIndex);
+                  }
+                }
+              },
+              'layerControl'
+          )
+      );
+    });
+
+    return nodes;
+  }
+
+  function generateEdgesFromLayers(layers: Layer[]) {
+    const edges: Edge[] = [];
+    for (let i = 0; i < layers.length - 1; i++) {
+      for (let a = 0; a < layers[i].nodes.length; a++) {
+        for (let b = 0; b < layers[i + 1].nodes.length; b++) {
+          edges.push(createEdge(`e-${i}-${a}-${i + 1}-${b}`, `${i}-${a}`, `${i + 1}-${b}`));
+        }
+      }
+    }
+    return edges;
+  }
+
   return (
-    <div>
       <div>
-        <div style={{
-          width: '700px',
-          height: '600px'
-        }}>
-
+        <div style={{ width: '1000px', height: '600px' }}>
           <ReactFlow
-            nodes={generateNodesFromLayers(layers)}
-            edges={generateEdgesFromLayers(layers)}
-            onNodesChange={() => console.log('test')}
-            onEdgesChange={() => console.log('test')}
-            zoomOnScroll={false}
-            zoomOnPinch={false}
-            panOnScroll={false}
-            panOnDrag={false}
-            zoomOnDoubleClick={false}
-            nodesDraggable={false}
-            nodesConnectable={false}
+              nodes={generateNodesFromLayers(layers)}
+              edges={generateEdgesFromLayers(layers)}
+              onNodeClick={(_, node) => {
+                if (node.data?.isPlaceholder && node.data?.layerId) {
+                  addNodeToLayer(node.data.layerId, { value: Math.random() });
+                }
+              }}
+              nodeTypes={nodeTypes}
+              zoomOnScroll={false}
+              panOnScroll={false}
+              zoomOnDoubleClick={false}
+              nodesDraggable={false}
+              nodesConnectable={false}
           >
             <Background variant={BackgroundVariant.Dots} />
           </ReactFlow>
         </div>
+        <button onClick={() => addLayer()}>Add Layer</button>
       </div>
-      <button onClick={() => addLayer()}>Add Layer</button>
-      <div>
-        {layers.map((layer, i) => (
-          <div key={layer.id} style={{ margin: '1rem', border: '1px solid #ccc', padding: '1rem' }}>
-            <p>Layer {i + 1} (ID: {layer.id})</p>
-            <button onClick={() => deleteLayer(layer.id)}>Delete Layer</button>
-            <button onClick={() => addNodeToLayer(layer.id, { value: Math.random() })}>Add Node</button>
-            {layer.nodes.map((node, idx) => (
-              <div key={idx}>
-                Node {idx + 1}: {JSON.stringify(node)}
-                <button onClick={() => deleteNodeFromLayer(layer.id, idx)}>Delete Node</button>
-              </div>
-            ))}
-          </div>
-        ))}
-      </div>
-    </div>
   );
-};
+}
 
 export default NeuralNetworkEditor;
