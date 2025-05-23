@@ -6,7 +6,7 @@ import {
     Handle,
     Position,
 } from "@xyflow/react";
-import { BaseNode } from "./base-node";
+import { BaseNode } from "./ui/base-node";
 import 'reactflow/dist/style.css';
 export type PlaceholderNodeProps = Partial<NodeProps> & {
     children?: ReactNode;

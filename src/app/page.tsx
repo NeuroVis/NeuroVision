@@ -59,11 +59,6 @@ export default function Home() {
                       {/*    <p className={"text-md pl-2"}>FEATURES</p>*/}
                       {/*    <p className={"text-sm"}>Which properties do you want to feed in?</p>*/}
 
-                      {/*</div>*/}
-                      {/*<div className={"flex flex-col gap-2  w-full px-20"}>*/}
-                      {/*    <p className={"text-md self-center pl-2"}>HIDDEN LAYERS</p>*/}
-                      {/*    <div className={" border-x-2 border-t-2 border-indigo-800 h-4"}></div>*/}
-                      {/*</div>*/}
                   </div>
                   <NeuralNetworkEditor/>
               </div>

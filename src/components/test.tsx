@@ -27,7 +27,7 @@ type State = Layer[];
 const reducer = (state: State, action: any): State => {
     switch (action.type) {
         case 'ADD_LAYER': {
-            if (state.length >= 6) return state;
+            if (state.length >= 7) return state;
             const newLayer: Layer = {
                 id: uuidv4(),
                 nodes: [{ value: Math.random() }]
@@ -115,13 +115,42 @@ const useNeuralNetwork = () => {
         setLayers
     };
 };
-
-function createNode(id: string, x: number, y: number, label: any = '2', extraData: any = {}, type?: string): Node {
+const InitialLayerNode: React.FC<NodeProps> = ({ data }) => (
+    <div
+        className="flex justify-center items-center rounded-full"
+        style={{
+            width: 40,
+            height: 40,
+            background: data.isActive ? '#4a3dbf' : '#ddd',
+            border: '2px solid #aaa',
+            cursor: 'pointer'
+        }}
+        onClick={e => {
+            e.stopPropagation();
+            data.onClick();
+        }}
+    >
+        2
+    </div>
+);
+function createNode(
+    id: string,
+    x: number,
+    y: number,
+    label: any = '2',
+    extraData: any = {},
+    type?: string
+): Node {
     const node: Node = {
         id,
         position: { x, y },
         data: { label, ...extraData },
-        style: {
+        targetPosition: Position.Left,
+        sourcePosition: Position.Right,
+    };
+
+    if (!type) {
+        node.style = {
             borderRadius: '1000px',
             width: '40px',
             height: '40px',
@@ -129,14 +158,10 @@ function createNode(id: string, x: number, y: number, label: any = '2', extraDat
             background: extraData.isPlaceholder
                 ? '#eee'
                 : extraData.isActive
-                    ? '#4ade80' // 🟢 active = green
-                    : '#ddd'    // inactive = gray
-        },
-        targetPosition: Position.Left,
-        sourcePosition: Position.Right
-    };
-
-    if (type) {
+                    ? '#4ade80'
+                    : '#ddd',
+        };
+    } else {
         node.type = type;
     }
 
@@ -179,7 +204,8 @@ const LayerControlNode: React.FC<NodeProps> = ({ data }) => (
 
 const nodeTypes = {
     placeholder: PlaceholderNode,
-    layerControl: LayerControlNode
+    layerControl: LayerControlNode,
+    initialLayer: InitialLayerNode
 };
 
 const spaceBetweenNodes = 50;
@@ -236,6 +262,7 @@ function NeuralNetworkEditor() {
                 const yPosition = (nodeIndex + 1) * spaceBetweenNodes;
                 const isActive = activeNodeIds.includes(nodeId);
 
+
                 nodes.push(
                     createNode(
                         nodeId,
@@ -243,11 +270,10 @@ function NeuralNetworkEditor() {
                         yPosition,
                         '2',
                         {
-                            ...(layerIndex === 0 && {
-                                onClick: () => toggleNodeActive(nodeId),
-                                isActive
-                            })
-                        }
+                            onClick: () => toggleNodeActive(nodeId),
+                            isActive
+                        },
+                        layerIndex === 0 ? 'initialLayer' : undefined
                     )
                 );
             });
@@ -289,7 +315,7 @@ function NeuralNetworkEditor() {
 
     return (
         <div>
-            <div className={"flex flex-col gap-2  w-full px-20"}>
+            <div className={"flex flex-col gap-2 ml-10 w-full  px-20"}>
                 <div className={"flex flex-row justify-center items-center gap-3"}>
                     <Button onClick={() => addLayer()} className="rounded-full bg-indigo-950 hover:bg-indigo-600 text-white">
                         <Plus className="text-white" />
@@ -304,7 +330,7 @@ function NeuralNetworkEditor() {
             <div style={{ width: '1000px', height: '450px' }}>
                 <ReactFlow
                     nodes={generateNodesFromLayers(layers)}
-                    edges={generateEdgesFromLayers(layers, activeNodeIds)} // 🆕 Pass activeNodeIds to edge generation
+                    edges={generateEdgesFromLayers(layers, activeNodeIds)}
                     nodeTypes={nodeTypes}
                     zoomOnScroll={false}
                     zoomOnPinch={false}
