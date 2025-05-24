@@ -25,7 +25,13 @@ export function NavBar() {
                         <SheetTitle className={"font-bold text-xl"}>NeuroVision</SheetTitle>
                         <SheetDescription className={"text-black text-[14px]"}>
                             <br/>
-                            NeuroVision is an interactive platform for designing, understanding, and experimenting with neural networks — all in your browser.
+                            NeuroVision is an interactive platform for designing, understanding, and experimenting with neural networks - all in your browser.
+                            <br /><br />
+                            <span className={"font-semibold"}>What’s a Neural Network?</span>
+                            <br/>
+                            A neural network is a type of computer model designed to recognize patterns and make decisions by learning from examples.
+                            It’s inspired by the way human brains process information. At its core, a neural network is made up of layers of simple units (called neurons) that pass signals to each other.
+                            As the network trains on data, it gradually adjusts the strength of these connections, getting better at solving the task it's given - whether that’s recognizing images, understanding speech, or making predictions.
                             <br /><br />
                             You can click on any label and you’ll be provided with an explanation on what it does and how to use it.
                             <br /><br />

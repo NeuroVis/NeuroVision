@@ -57,13 +57,15 @@ export default function Home() {
                                     Think of it like the step size the model takes toward minimizing its mistakes.
                                     <br/>
                                     <div className={"flex flex-row gap-2"}>
-                                        <Dot/>
+                                        <Diamond className={"mt-2 ml-2"} width={10} height={10} color={"indigo"}
+                                                 fill={"indigo"}/>
                                         A small learning rate (e.g., 0.0001) means the model learns slowly but steadily,
                                         which can lead to more accurate results over time—though it may take longer to
                                         train.
                                     </div>
                                     <div className={"flex flex-row gap-2"}>
-                                        <Dot/>
+                                        <Diamond className={"mt-2 ml-2"} width={10} height={10} color={"indigo"}
+                                                 fill={"indigo"}/>
                                         A large learning rate (e.g., 1 or 10) speeds up learning, but if it's too large,
                                         the model might overshoot good solutions and fail to learn properly.
                                     </div>
@@ -71,11 +73,11 @@ export default function Home() {
                                     Choosing the right learning rate is a balance:
                                     <br/>
                                     <div className={"flex flex-row gap-2"}>
-                                        <Brain color={"salmon"}/>
+                                        <Dot/>
                                         Too small = slow and possibly stuck
                                     </div>
                                     <div className={"flex flex-row gap-2"}>
-                                        <Zap color={"yellow"}/>
+                                        <Dot/>
                                         Too big = fast but unstable
                                     </div>
                                 </DrawerDescription>
@@ -259,7 +261,7 @@ export default function Home() {
                             </DrawerHeader>
                             <DrawerFooter>
                                 Try both L1 and L2 in NeuroVision to see how they influence training. L2 is more common, but L1 can be powerful for creating sparse, efficient networks.
-                                <br/>
+                                <br/><br/>
                                 <div className={"border-t-2 border-indigo-800 px-2 py-1"}/>
                                 <br/>
                             </DrawerFooter>
@@ -273,13 +275,61 @@ export default function Home() {
                         <DrawerContent>
                             <DrawerHeader>
                                 <DrawerTitle>Regularisation rate</DrawerTitle>
-                                <DrawerDescription>This action cannot be undone.</DrawerDescription>
+                                <DrawerDescription className={"text-black text-[16px]"}>
+                                    <div className={"border-t-2 border-indigo-800 px-2  py-1"}/>
+                                    The regularization rate controls how strongly the regularization penalty is applied during training.
+                                    It works together with your selected regularization method (L1 or L2) to prevent overfitting by limiting the size or number of weights in the neural network.
+                                    <br/>
+                                    <div className={"flex flex-row pt-1 pl-6"}>
+                                        <div className={"flex flex-col gap-1"}>
+                                            <div className={"flex flex-row align-middle gap-2"}>
+                                                <Diamond className={"mt-2 ml-2"} width={10} height={10} color={"indigo"}
+                                                         fill={"indigo"}/>
+                                                <span className={"font-semibold"}>How it works:</span>
+                                            </div>
+                                            <div className={"flex flex-row gap-2"}>
+                                                <Dot/>
+                                                The regularization term is added to the loss function.
+                                            </div>
+                                            <div className={"flex flex-row gap-2"}>
+                                                <Dot/>
+                                                This term is multiplied by the regularization rate.
+                                            </div>
+                                            <div className={"flex flex-row gap-2"}>
+                                                <Dot/>
+                                                The higher the rate, the stronger the penalty on large weights.
+                                            </div>
+                                            <div className={"flex flex-row align-middle gap-1"}>
+                                                <Diamond className={"mt-2 ml-2"} width={10} height={10} color={"indigo"}
+                                                         fill={"indigo"}/>
+                                                <span className={"font-semibold"}>Example values:</span>
+                                            </div>
+                                            <div className={"flex flex-row gap-2"}>
+                                                <Dot/>
+                                                0 → No regularization applied.
+                                            </div>
+                                            <div className={"flex flex-row gap-2"}>
+                                                <Dot/>
+                                                Small values (e.g., 0.001 or 0.01) → Light regularization: helps reduce overfitting without hurting performance too much.
+                                            </div>
+                                            <div className={"flex flex-row gap-2"}>
+                                                <Dot/>
+                                                Medium values (e.g., 0.1 or 0.3) → More aggressive: stronger push toward smaller weights or sparsity.
+                                            </div>
+                                            <div className={"flex flex-row gap-2"}>
+                                                <Dot/>
+                                                High values (e.g., 1, 3, or 10) → Heavy regularization: may oversimplify the model, leading to underfitting.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </DrawerDescription>
                             </DrawerHeader>
                             <DrawerFooter>
-                                <Button>Submit</Button>
-                                <DrawerClose>
-                                    <Button variant="outline">Cancel</Button>
-                                </DrawerClose>
+                                Try increasing the regularization rate to encourage simpler, more generalizable models.
+                                In NeuroVision, you can adjust the rate live and see how it affects your model’s accuracy and behavior.
+                                <br/><br/>
+                                <div className={"border-t-2 border-indigo-800 px-2 py-1"}/>
+                                <br/>
                             </DrawerFooter>
                         </DrawerContent>
                     </Drawer>
@@ -295,9 +345,7 @@ export default function Home() {
                             </DrawerHeader>
                             <DrawerFooter>
                                 <Button>Submit</Button>
-                                <DrawerClose>
-                                    <Button variant="outline">Cancel</Button>
-                                </DrawerClose>
+
                             </DrawerFooter>
                         </DrawerContent>
                     </Drawer>
