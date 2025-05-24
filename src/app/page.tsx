@@ -3,7 +3,7 @@
 import Option from "@/components/options";
 import Image from "next/image";
 import {Button} from "@/components/ui/button";
-import {Brain, Dot, Minus, Play, Plus, RotateCcw, SkipForward, Zap} from "lucide-react";
+import {Brain, Diamond, Dot, Minus, Play, Plus, RotateCcw, SkipForward, Zap} from "lucide-react";
 import Scrollable from "@/components/scrollable";
 import NeuralNetworkEditor from "@/components/test";
 import {
@@ -51,17 +51,21 @@ export default function Home() {
                                     <br/>
                                     <div className={"border-t-2 border-indigo-800 px-2 py-1"}/>
                                     <br/>
-                                    The learning rate is a crucial setting that controls how much a neural network adjusts its internal weights in response to the error it makes during training.
+                                    The learning rate is a crucial setting that controls how much a neural network
+                                    adjusts its internal weights in response to the error it makes during training.
                                     <br/>
                                     Think of it like the step size the model takes toward minimizing its mistakes.
                                     <br/>
                                     <div className={"flex flex-row gap-2"}>
                                         <Dot/>
-                                        A small learning rate (e.g., 0.0001) means the model learns slowly but steadily, which can lead to more accurate results over time—though it may take longer to train.
+                                        A small learning rate (e.g., 0.0001) means the model learns slowly but steadily,
+                                        which can lead to more accurate results over time—though it may take longer to
+                                        train.
                                     </div>
                                     <div className={"flex flex-row gap-2"}>
                                         <Dot/>
-                                        A large learning rate (e.g., 1 or 10) speeds up learning, but if it's too large, the model might overshoot good solutions and fail to learn properly.
+                                        A large learning rate (e.g., 1 or 10) speeds up learning, but if it's too large,
+                                        the model might overshoot good solutions and fail to learn properly.
                                     </div>
                                     <br/>
                                     Choosing the right learning rate is a balance:
@@ -77,12 +81,12 @@ export default function Home() {
                                 </DrawerDescription>
                             </DrawerHeader>
                             <DrawerFooter>
-                                On NeuroVision, you can experiment with different learning rates to see how it affects your model’s training and performance.
+                                On NeuroVision, you can experiment with different learning rates to see how it affects
+                                your model’s training and performance.
                                 <br/><br/>
                                 <div className={"border-t-2 border-indigo-800 px-2 py-1"}/>
                                 <br/>
                             </DrawerFooter>
-
                         </DrawerContent>
                     </Drawer>
                     {/*Activation*/}
@@ -91,14 +95,97 @@ export default function Home() {
                                                items={["ReLU", "Tanh", "Sigmoid", "Linear"]}/></DrawerTrigger>
                         <DrawerContent>
                             <DrawerHeader>
-                                <DrawerTitle>Are you absolutely sure?</DrawerTitle>
-                                <DrawerDescription>This action cannot be undone.</DrawerDescription>
+                                <DrawerTitle>Activation Function</DrawerTitle>
+                                <DrawerDescription className={"text-black text-[16px]"}>
+                                    <div className={"border-t-2 border-indigo-800 px-2  py-1"}/>
+                                    An activation function decides whether a neuron in a neural network should be
+                                    "activated" or not. It adds non-linearity to the model, helping it learn complex
+                                    patterns in data.
+                                    <br/>
+                                    Different functions behave in different ways:
+                                    <br/><br/>
+                                    <div className={"flex flex-row gap-20 pl-6"}>
+                                        <div className={"flex flex-col gap-2"}>
+                                            <div className={"flex flex-row align-middle gap-2"}>
+                                                <Diamond className={"mt-2 ml-2"} width={10} height={10} color={"indigo"}
+                                                         fill={"indigo"}/>
+                                                <span className={"font-semibold"}>ReLU</span> (Rectified Linear Unit)
+                                            </div>
+                                            <div className={"flex flex-row gap-2"}>
+                                                <Dot/>
+                                                Output: 0 if input is negative; otherwise, it returns the input.
+                                            </div>
+                                            <div className={"flex flex-row gap-2"}>
+                                                <Dot/>
+                                                Why use it? Fast and effective, especially for deep networks.
+                                            </div>
+                                            <div className={"flex flex-row gap-2"}>
+                                                <Dot/>
+                                                Popular for: Most modern architectures.
+                                            </div>
+                                            <div className={"flex flex-row align-middle gap-2"}>
+                                                <Diamond className={"mt-2 ml-2"} width={10} height={10} color={"indigo"}
+                                                         fill={"indigo"}/>
+                                                <span className={"font-semibold"}>Tanh</span> (Hyperbolic Tangent)
+                                            </div>
+                                            <div className={"flex flex-row gap-2"}>
+                                                <Dot/>
+                                                Output: Values between -1 and 1.
+                                            </div>
+                                            <div className={"flex flex-row gap-2"}>
+                                                <Dot/>
+                                                Why use it? Useful when you want the data to be centered around 0.
+                                            </div>
+                                            <div className={"flex flex-row gap-2"}>
+                                                <Dot/>
+                                                Popular for: Networks where negative output matters.
+                                            </div>
+                                        </div>
+                                        <div className={"flex flex-col gap-2"}>
+                                            <div className={"flex flex-row align-middle gap-2"}>
+                                                <Diamond className={"mt-2 ml-2"} width={10} height={10} color={"indigo"}
+                                                         fill={"indigo"}/>
+                                                <span className={"font-semibold"}>Sigmoid</span>
+                                            </div>
+                                            <div className={"flex flex-row gap-2"}>
+                                                <Dot/>
+                                                Output: Values between 0 and 1.
+                                            </div>
+                                            <div className={"flex flex-row gap-2"}>
+                                                <Dot/>
+                                                Why use it? Great for binary classification problems.
+                                            </div>
+                                            <div className={"flex flex-row gap-2"}>
+                                                <Dot/>
+                                                Popular for: Simple models or output layers in classifiers.
+                                            </div>
+                                            <div className={"flex flex-row align-middle gap-2"}>
+                                                <Diamond className={"mt-2 ml-2"} width={10} height={10} color={"indigo"}
+                                                         fill={"indigo"}/>
+                                                <span className={"font-semibold"}>Linear</span>
+                                            </div>
+                                            <div className={"flex flex-row gap-2"}>
+                                                <Dot/>
+                                                Output: The exact input value (no change).
+                                            </div>
+                                            <div className={"flex flex-row gap-2"}>
+                                                <Dot/>
+                                                Why use it? Useful for regression tasks (e.g., predicting numbers).
+                                            </div>
+                                            <div className={"flex flex-row gap-2"}>
+                                                <Dot/>
+                                                Popular for: Output layers in continuous value prediction.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </DrawerDescription>
                             </DrawerHeader>
                             <DrawerFooter>
-                                <Button>Submit</Button>
-                                <DrawerClose>
-                                    <Button variant="outline">Cancel</Button>
-                                </DrawerClose>
+                                Choosing the right activation function impacts how well and how fast your network
+                                learns. Try switching them in NeuroVision to see how they affect your model’s behavior!
+                                <br/><br/>
+                                <div className={"border-t-2 border-indigo-800 px-2 py-1"}/>
+                                <br/>
                             </DrawerFooter>
                         </DrawerContent>
                     </Drawer>
