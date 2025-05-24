@@ -314,18 +314,25 @@ function NeuralNetworkEditor() {
     }
 
     return (
-        <div>
-            <div className={"flex flex-col gap-2 ml-10 w-full  px-20"}>
-                <div className={"flex flex-row justify-center items-center gap-3"}>
-                    <Button onClick={() => addLayer()} className="rounded-full bg-indigo-950 hover:bg-indigo-600 text-white">
-                        <Plus className="text-white" />
-                    </Button>
-                    <p className={"text-md self-center"}>HIDDEN LAYERS</p>
-                    <Button onClick={() => deleteLayer()} className="rounded-full bg-indigo-950 hover:bg-indigo-600 text-white">
-                        <Minus className="text-white" />
-                    </Button>
+        <div >
+            <div className={"flex flex-row gap-4 space-between w-full "}>
+                <div className={"flex flex-col gap-2 w-[150px]"}>
+                    <p className={"text-md pl-2"}>FEATURES</p>
+                    <p className={"text-sm"}>Which properties do you want to feed in?</p>
                 </div>
-                <div className={" border-x-2 border-t-2 border-indigo-800 h-4"}></div>
+                <div className={"flex flex-col w-[760px] gap-1"}>
+                    <div className={"flex flex-row justify-center items-center gap-3"}>
+                        <Button onClick={() => addLayer()} className="rounded-full bg-indigo-950 hover:bg-indigo-600 text-white">
+                            <Plus className="text-white" />
+                        </Button>
+                        <p className={"text-md self-center"}>HIDDEN LAYERS</p>
+                        <Button onClick={() => deleteLayer()} className="rounded-full bg-indigo-950 hover:bg-indigo-600 text-white">
+                            <Minus className="text-white" />
+                        </Button>
+                    </div>
+                    <div className={" border-x-2 border-t-2 border-indigo-800 h-4"}></div>
+                </div>
+
             </div>
             <div style={{ width: '1000px', height: '450px' }}>
                 <ReactFlow

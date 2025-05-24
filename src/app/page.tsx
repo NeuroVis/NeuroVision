@@ -55,9 +55,6 @@ export default function Home() {
               </div>
               <div className={"flex flex-col justify-center"}>
                   <div className={"flex flex-row justify-between gap-60"}>
-                      {/*<div className={"flex flex-col gap-2 w-[160px]"}>*/}
-                      {/*    <p className={"text-md pl-2"}>FEATURES</p>*/}
-                      {/*    <p className={"text-sm"}>Which properties do you want to feed in?</p>*/}
 
                   </div>
                   <NeuralNetworkEditor/>
