@@ -15,7 +15,7 @@ export default function Option({title, items}:{title:string, items:string[]}): R
         <div className="flex flex-col text-black gap-2">
             <HoverCard >
                 <HoverCardTrigger asChild>
-                    <p className={"text-[16px]"}>{title}</p>
+                    <p className={"text-[16px] self-start"}>{title}</p>
                 </HoverCardTrigger>
                 <HoverCardContent className="w-45 bg-indigo-100">
                     <div className={"text-[14px]"}>

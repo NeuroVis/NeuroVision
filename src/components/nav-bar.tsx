@@ -27,7 +27,7 @@ export function NavBar() {
                             <br/>
                             NeuroVision is an interactive platform for designing, understanding, and experimenting with neural networks — all in your browser.
                             <br /><br />
-                            You can click on any label and you’ll be redirected to a page that explains what it does and how to use it.
+                            You can click on any label and you’ll be provided with an explanation on what it does and how to use it.
                             <br /><br />
                             This feature is designed to make exploration intuitive, so feel free to click around and learn more as you go.
                         </SheetDescription>
