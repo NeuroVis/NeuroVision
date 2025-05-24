@@ -89,6 +89,7 @@ export default function Home() {
                             </DrawerFooter>
                         </DrawerContent>
                     </Drawer>
+
                     {/*Activation*/}
                     <Drawer>
                         <DrawerTrigger><Option title={"Activation"}
@@ -189,19 +190,78 @@ export default function Home() {
                             </DrawerFooter>
                         </DrawerContent>
                     </Drawer>
+
                     {/*Regularization*/}
                     <Drawer>
                         <DrawerTrigger><Option title={"Regularization"} items={["None", "L1", "L2"]}/></DrawerTrigger>
                         <DrawerContent>
                             <DrawerHeader>
-                                <DrawerTitle>Are you absolutely sure?</DrawerTitle>
-                                <DrawerDescription>This action cannot be undone.</DrawerDescription>
+                                <DrawerTitle>Regularization</DrawerTitle>
+                                <DrawerDescription className={"text-black text-[16px]"}>
+                                    <div className={"border-t-2 border-indigo-800 px-2  py-1"}/>
+                                    Regularization is a technique used to prevent overfitting — when a neural network memorizes training data instead of learning to generalize. It works by adding a penalty to the model’s complexity,
+                                    <br/>
+                                    encouraging it to keep weights smaller and more balanced.
+                                    <br/>
+                                    <div className={"flex flex-row pt-1 pl-6"}>
+                                        <div className={"flex flex-col gap-1"}>
+                                            <div className={"flex flex-row align-middle gap-2"}>
+                                                <Diamond className={"mt-2 ml-2"} width={10} height={10} color={"indigo"}
+                                                         fill={"indigo"}/>
+                                                <span className={"font-semibold"}>None</span>
+                                            </div>
+                                            <div className={"flex flex-row gap-2"}>
+                                                <Dot/>
+                                                No regularization applied.
+                                            </div>
+                                            <div className={"flex flex-row gap-2"}>
+                                                <Dot/>
+                                                The model may perform better on training data but risks overfitting.
+                                            </div>
+                                            <div className={"flex flex-row align-middle gap-1"}>
+                                                <Diamond className={"mt-2 ml-2"} width={10} height={10} color={"indigo"}
+                                                         fill={"indigo"}/>
+                                                <span className={"font-semibold"}> L1 Regularization (Lasso)</span>
+                                            </div>
+                                            <div className={"flex flex-row gap-2"}>
+                                                <Dot/>
+                                                Adds the absolute value of weights to the loss function.
+                                            </div>
+                                            <div className={"flex flex-row gap-2"}>
+                                                <Dot/>
+                                                Encourages sparsity, meaning it can force some weights to become exactly zero.
+                                            </div>
+                                            <div className={"flex flex-row gap-2"}>
+                                                <Dot/>
+                                                Useful when you want a simpler model or feature selection.
+                                            </div>
+                                            <div className={"flex flex-row align-middle gap-1"}>
+                                                <Diamond className={"mt-2 ml-2"} width={10} height={10} color={"indigo"}
+                                                         fill={"indigo"}/>
+                                                <span className={"font-semibold"}>  L2 Regularization (Ridge)</span>
+                                            </div>
+                                            <div className={"flex flex-row gap-2"}>
+                                                <Dot/>
+                                                Adds the square of the weights to the loss function.
+                                            </div>
+                                            <div className={"flex flex-row gap-2"}>
+                                                <Dot/>
+                                                Encourages smaller weights overall, but rarely zeroes them out.
+                                            </div>
+                                            <div className={"flex flex-row gap-2"}>
+                                                <Dot/>
+                                                Helps smooth out the learning process and reduce overfitting.
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </DrawerDescription>
                             </DrawerHeader>
                             <DrawerFooter>
-                                <Button>Submit</Button>
-                                <DrawerClose>
-                                    <Button variant="outline">Cancel</Button>
-                                </DrawerClose>
+                                Try both L1 and L2 in NeuroVision to see how they influence training. L2 is more common, but L1 can be powerful for creating sparse, efficient networks.
+                                <br/>
+                                <div className={"border-t-2 border-indigo-800 px-2 py-1"}/>
+                                <br/>
                             </DrawerFooter>
                         </DrawerContent>
                     </Drawer>
@@ -212,7 +272,7 @@ export default function Home() {
                                                items={["0", "0.001", "0.01", "0.1", "1", "0.003", "0.03", "0.3", "3", "10"]}/></DrawerTrigger>
                         <DrawerContent>
                             <DrawerHeader>
-                                <DrawerTitle>Are you absolutely sure?</DrawerTitle>
+                                <DrawerTitle>Regularisation rate</DrawerTitle>
                                 <DrawerDescription>This action cannot be undone.</DrawerDescription>
                             </DrawerHeader>
                             <DrawerFooter>
