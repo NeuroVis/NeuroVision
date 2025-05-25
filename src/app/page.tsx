@@ -30,7 +30,7 @@ export default function Home() {
                     <Button className={"bg-transparent py-5.5 rounded-full hover:bg-indigo-300"}>
                         <SkipForward className={"size-5 text-black"}/>
                     </Button>
-                    <div className="flex flex-col text-black gap-1 pl-2">
+                    <div className="flex flex-col text-black gap-1 pl-6">
                         <p className={"text-black font-normal"}>Epoch</p>
                         <h1 className={"text-[22px]"}>000,000</h1>
                     </div>
@@ -201,7 +201,9 @@ export default function Home() {
                                 <DrawerTitle>Regularization</DrawerTitle>
                                 <DrawerDescription className={"text-black text-[16px]"}>
                                     <div className={"border-t-2 border-indigo-800 px-2  py-1"}/>
-                                    Regularization is a technique used to prevent overfitting — when a neural network memorizes training data instead of learning to generalize. It works by adding a penalty to the model’s complexity,
+                                    Regularization is a technique used to prevent overfitting — when a neural network
+                                    memorizes training data instead of learning to generalize. It works by adding a
+                                    penalty to the model’s complexity,
                                     <br/>
                                     encouraging it to keep weights smaller and more balanced.
                                     <br/>
@@ -231,7 +233,8 @@ export default function Home() {
                                             </div>
                                             <div className={"flex flex-row gap-2"}>
                                                 <Dot/>
-                                                Encourages sparsity, meaning it can force some weights to become exactly zero.
+                                                Encourages sparsity, meaning it can force some weights to become exactly
+                                                zero.
                                             </div>
                                             <div className={"flex flex-row gap-2"}>
                                                 <Dot/>
@@ -260,7 +263,8 @@ export default function Home() {
                                 </DrawerDescription>
                             </DrawerHeader>
                             <DrawerFooter>
-                                Try both L1 and L2 in NeuroVision to see how they influence training. L2 is more common, but L1 can be powerful for creating sparse, efficient networks.
+                                Try both L1 and L2 in NeuroVision to see how they influence training. L2 is more common,
+                                but L1 can be powerful for creating sparse, efficient networks.
                                 <br/><br/>
                                 <div className={"border-t-2 border-indigo-800 px-2 py-1"}/>
                                 <br/>
@@ -277,8 +281,10 @@ export default function Home() {
                                 <DrawerTitle>Regularisation rate</DrawerTitle>
                                 <DrawerDescription className={"text-black text-[16px]"}>
                                     <div className={"border-t-2 border-indigo-800 px-2  py-1"}/>
-                                    The regularization rate controls how strongly the regularization penalty is applied during training.
-                                    It works together with your selected regularization method (L1 or L2) to prevent overfitting by limiting the size or number of weights in the neural network.
+                                    The regularization rate controls how strongly the regularization penalty is applied
+                                    during training.
+                                    It works together with your selected regularization method (L1 or L2) to prevent
+                                    overfitting by limiting the size or number of weights in the neural network.
                                     <br/>
                                     <div className={"flex flex-row pt-1 pl-6"}>
                                         <div className={"flex flex-col gap-1"}>
@@ -310,15 +316,18 @@ export default function Home() {
                                             </div>
                                             <div className={"flex flex-row gap-2"}>
                                                 <Dot/>
-                                                Small values (e.g., 0.001 or 0.01) → Light regularization: helps reduce overfitting without hurting performance too much.
+                                                Small values (e.g., 0.001 or 0.01) → Light regularization: helps reduce
+                                                overfitting without hurting performance too much.
                                             </div>
                                             <div className={"flex flex-row gap-2"}>
                                                 <Dot/>
-                                                Medium values (e.g., 0.1 or 0.3) → More aggressive: stronger push toward smaller weights or sparsity.
+                                                Medium values (e.g., 0.1 or 0.3) → More aggressive: stronger push toward
+                                                smaller weights or sparsity.
                                             </div>
                                             <div className={"flex flex-row gap-2"}>
                                                 <Dot/>
-                                                High values (e.g., 1, 3, or 10) → Heavy regularization: may oversimplify the model, leading to underfitting.
+                                                High values (e.g., 1, 3, or 10) → Heavy regularization: may oversimplify
+                                                the model, leading to underfitting.
                                             </div>
                                         </div>
                                     </div>
@@ -326,7 +335,8 @@ export default function Home() {
                             </DrawerHeader>
                             <DrawerFooter>
                                 Try increasing the regularization rate to encourage simpler, more generalizable models.
-                                In NeuroVision, you can adjust the rate live and see how it affects your model’s accuracy and behavior.
+                                In NeuroVision, you can adjust the rate live and see how it affects your model’s
+                                accuracy and behavior.
                                 <br/><br/>
                                 <div className={"border-t-2 border-indigo-800 px-2 py-1"}/>
                                 <br/>
@@ -340,12 +350,70 @@ export default function Home() {
                                                items={["Classification", "Regression"]}/></DrawerTrigger>
                         <DrawerContent>
                             <DrawerHeader>
-                                <DrawerTitle>Are you absolutely sure?</DrawerTitle>
-                                <DrawerDescription>This action cannot be undone.</DrawerDescription>
+                                <DrawerTitle>Problem type</DrawerTitle>
+                                <DrawerDescription className={"text-black text-[16px]"}>
+                                    <div className={"border-t-2 border-indigo-800 px-2  py-1"}/>
+                                    The problem type defines what kind of task your neural network is trying to solve.
+                                    <br/>
+                                    Choosing the right type is essential, as it determines how the network behaves, how
+                                    the output is structured, and how performance is measured.
+                                    <br/>
+                                    <div className={"flex flex-row pt-1 pl-6"}>
+                                        <div className={"flex flex-col gap-1"}>
+                                            <div className={"flex flex-row align-middle gap-2"}>
+                                                <Diamond className={"mt-2 ml-2"} width={10} height={10} color={"indigo"}
+                                                         fill={"indigo"}/>
+                                                <span className={"font-semibold"}> Classification</span>
+                                            </div>
+                                            <div className={"flex flex-row gap-2"}>
+                                                <Dot/>
+                                                The model learns to predict categories or labels.
+                                            </div>
+                                            <div className={"flex flex-row gap-2"}>
+                                                <Dot/>
+                                                Examples: "Is this image a cat or a dog?" / "What digit is in this
+                                                handwriting?" / "Is this email spam or not?"
+                                            </div>
+                                            <div className={"flex flex-row gap-2"}>
+                                                <Dot/>
+                                                Output: Discrete classes (e.g., "yes"/"no", "A"/"B"/"C").
+                                            </div>
+                                            <div className={"flex flex-row gap-2"}>
+                                                <Dot/>
+                                                Common output activation: Sigmoid.
+                                            </div>
+                                            <div className={"flex flex-row align-middle gap-1"}>
+                                                <Diamond className={"mt-2 ml-2"} width={10} height={10} color={"indigo"}
+                                                         fill={"indigo"}/>
+                                                <span className={"font-semibold"}>Regression</span>
+                                            </div>
+                                            <div className={"flex flex-row gap-2"}>
+                                                <Dot/>
+                                                The model learns to predict continuous numeric values.
+                                            </div>
+                                            <div className={"flex flex-row gap-2"}>
+                                                <Dot/>
+                                                Examples: "What is the price of this house?" / "How much will a user
+                                                spend next month?" / "What is the temperature tomorrow?"
+                                            </div>
+                                            <div className={"flex flex-row gap-2"}>
+                                                <Dot/>
+                                                Output: Real numbers (e.g., 3.14, 52.7).
+                                            </div>
+                                            <div className={"flex flex-row gap-2"}>
+                                                <Dot/>
+                                                Common output activation: Linear.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </DrawerDescription>
                             </DrawerHeader>
                             <DrawerFooter>
-                                <Button>Submit</Button>
-
+                                Pick classification when the answer is a label, and regression when the answer is a
+                                number.
+                                <br/><br/>
+                                <div className={"border-t-2 border-indigo-800 px-2 py-1"}/>
+                                <br/>
                             </DrawerFooter>
                         </DrawerContent>
                     </Drawer>
@@ -359,8 +427,6 @@ export default function Home() {
                         <p className={"text-md pl-2"}>DATA</p>
                         <p className={"text-sm"}>Which dataset do you want to use?</p>
                         <div className={"flex flex-wrap gap-3 w-[100px] pl-2"}>
-                            <Button className={" rounded-full px-4.5 hover:bg-indigo-300"}></Button>
-                            <Button className={" rounded-full px-4.5 hover:bg-indigo-300"}></Button>
                             <Button className={" rounded-full px-4.5 hover:bg-indigo-300"}></Button>
                             <Button className={" rounded-full px-4.5 hover:bg-indigo-300"}></Button>
                         </div>
@@ -389,4 +455,3 @@ export default function Home() {
     );
 }
 ///
-

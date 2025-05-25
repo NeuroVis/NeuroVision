@@ -322,11 +322,11 @@ function NeuralNetworkEditor() {
                 </div>
                 <div className={"flex flex-col w-[760px] gap-1"}>
                     <div className={"flex flex-row justify-center items-center gap-3"}>
-                        <Button onClick={() => addLayer()} className="rounded-full bg-indigo-950 hover:bg-indigo-600 text-white">
+                        <Button onClick={() => addLayer()} className="rounded-full h-10 bg-indigo-950 hover:bg-indigo-600 text-white">
                             <Plus className="text-white" />
                         </Button>
                         <p className={"text-md self-center"}>HIDDEN LAYERS</p>
-                        <Button onClick={() => deleteLayer()} className="rounded-full bg-indigo-950 hover:bg-indigo-600 text-white">
+                        <Button onClick={() => deleteLayer()} className="rounded-full h-10 bg-indigo-950 hover:bg-indigo-600 text-white">
                             <Minus className="text-white" />
                         </Button>
                     </div>
@@ -355,3 +355,6 @@ function NeuralNetworkEditor() {
 }
 
 export default NeuralNetworkEditor;
+
+///
+
