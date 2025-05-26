@@ -12,8 +12,16 @@ import ReactFlow, {
 
 import 'reactflow/dist/style.css';
 import { BackgroundVariant } from '@xyflow/react';
-import { Minus, Plus } from 'lucide-react';
+import {Diamond, Dot, Minus, Plus} from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger
+} from "@/components/ui/dialog";
 
 type NodeData = any;
 
@@ -284,11 +292,11 @@ function NeuralNetworkEditor() {
                         `placeholder-${layerIndex}`,
                         layerX,
                         (layer.nodes.length + 1) * spaceBetweenNodes,
-                        <Plus className="text-black" />,
+                        <Plus className="text-black"/>,
                         {
                             isPlaceholder: true,
                             layerId: layer.id,
-                            onClick: () => addNodeToLayer(layer.id, { value: Math.random() })
+                            onClick: () => addNodeToLayer(layer.id, {value: Math.random()})
                         },
                         'placeholder'
                     )
@@ -314,27 +322,102 @@ function NeuralNetworkEditor() {
     }
 
     return (
-        <div >
+        <div>
             <div className={"flex flex-row gap-4 space-between w-full "}>
-                <div className={"flex flex-col gap-2 w-[150px]"}>
-                    <p className={"text-md pl-2"}>FEATURES</p>
-                    <p className={"text-sm"}>Which properties do you want to feed in?</p>
-                </div>
+                <Dialog>
+                    <DialogTrigger className={"text-start"}>
+                        <div className={"flex flex-col gap-2 w-[150px]"}>
+                            <p className={"text-md pl-2"}>FEATURES</p>
+                            <p className={"text-sm"}>Which properties do you want to feed in?</p>
+                        </div>
+                    </DialogTrigger>
+                    <DialogContent>
+                        <DialogHeader>
+                            <DialogTitle>Features</DialogTitle>
+                            <DialogDescription className={"text-black text-[14px]"}>
+                                Features are the inputs you give to your neural network — the properties or transformations of data that help the model learn patterns.
+                                <br/>
+                                In NeuroVision, you can choose which features to include in the training process. Here's what each option means:
+                                <br/><br/>
+                                <div className={"flex flex-col gap-1"}>
+                                    <div className={"flex flex-row align-middle gap-1 "}>
+                                        <Diamond className={"mt-2 ml-2"} width={10} height={10} color={"indigo"}
+                                                 fill={"indigo"}/>
+                                        <span className={"font-semibold"}>X₁ and X₂</span>
+                                    </div>
+                                    <div className={"flex flex-row gap-2"}>
+                                        <Dot/>
+                                        The basic input variables.
+                                    </div>
+                                    <div className={"flex flex-row gap-2"}>
+                                        <Dot/>
+                                        Think of them as two dimensions of data (e.g., height and weight, or x and y coordinates).
+                                    </div>
+
+                                    <div className={"flex flex-row align-middle gap-2"}>
+                                        <Diamond className={"mt-2 ml-2"} width={10} height={10} color={"indigo"}
+                                                 fill={"indigo"}/>
+                                        <span className={"font-semibold"}>X₁² and X₂² (squared features)</span>
+                                    </div>
+                                    <div className={"flex flex-row gap-2"}>
+                                        <Dot/>
+                                        These represent the square of each input.
+                                    </div>
+                                    <div className={"flex flex-row gap-2"}>
+                                        <Dot/>
+                                        They allow the network to learn curved or nonlinear patterns in the data.
+                                    </div>
+
+                                    <div className={"flex flex-row align-middle gap-2"}>
+                                        <Diamond className={"mt-2 ml-2"} width={10} height={10} color={"indigo"}
+                                                 fill={"indigo"}/>
+                                        <span className={"font-semibold"}>X₁ × X₂ (interaction term)</span>
+                                    </div>
+                                    <div className={"flex flex-row gap-2"}>
+                                        <Dot/>
+                                        This is the product of the two inputs.
+                                    </div>
+                                    <div className={"flex flex-row gap-2"}>
+                                        <Dot/>
+                                        Helps the network capture how the two inputs influence each other when combined.
+                                    </div>
+
+                                    <div className={"flex flex-row align-middle gap-2"}>
+                                        <Diamond className={"mt-2 ml-2"} width={10} height={10} color={"indigo"}
+                                                 fill={"indigo"}/>
+                                        <span className={"font-semibold"}>sin(X₁) and sin(X₂)</span>
+                                    </div>
+                                    <div className={"flex flex-row gap-2"}>
+                                        <Dot/>
+                                        These apply the sine function to the inputs.
+                                    </div>
+                                    <div className={"flex flex-row gap-2"}>
+                                        <Dot/>
+                                        Great for learning periodic or wave-like patterns, such as signals or oscillations.
+                                    </div>
+                                </div>
+                            </DialogDescription>
+                        </DialogHeader>
+                    </DialogContent>
+                </Dialog>
+
                 <div className={"flex flex-col w-[760px] gap-1"}>
                     <div className={"flex flex-row justify-center items-center gap-3"}>
-                        <Button onClick={() => addLayer()} className="rounded-full h-10 bg-indigo-950 hover:bg-indigo-600 text-white">
-                            <Plus className="text-white" />
+                        <Button onClick={() => addLayer()}
+                                className="rounded-full h-10 bg-indigo-950 hover:bg-indigo-600 text-white">
+                            <Plus className="text-white"/>
                         </Button>
                         <p className={"text-md self-center"}>HIDDEN LAYERS</p>
-                        <Button onClick={() => deleteLayer()} className="rounded-full h-10 bg-indigo-950 hover:bg-indigo-600 text-white">
-                            <Minus className="text-white" />
+                        <Button onClick={() => deleteLayer()}
+                                className="rounded-full h-10 bg-indigo-950 hover:bg-indigo-600 text-white">
+                            <Minus className="text-white"/>
                         </Button>
                     </div>
                     <div className={" border-x-2 border-t-2 border-indigo-800 h-4"}></div>
                 </div>
 
             </div>
-            <div style={{ width: '1000px', height: '450px' }}>
+            <div style={{width: '1000px', height: '450px'}}>
                 <ReactFlow
                     nodes={generateNodesFromLayers(layers)}
                     edges={generateEdgesFromLayers(layers, activeNodeIds)}
@@ -347,7 +430,7 @@ function NeuralNetworkEditor() {
                     nodesDraggable={false}
                     nodesConnectable={false}
                 >
-                    <Background variant={BackgroundVariant.Dots} />
+                    <Background variant={BackgroundVariant.Dots}/>
                 </ReactFlow>
             </div>
         </div>

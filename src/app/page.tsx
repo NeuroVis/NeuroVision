@@ -14,6 +14,15 @@ import {
     DrawerTitle,
     DrawerTrigger
 } from "@/components/ui/drawer";
+import {Popover, PopoverContent, PopoverTrigger} from "@/components/ui/popover";
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger
+} from "@/components/ui/dialog";
 
 
 export default function Home() {
@@ -417,15 +426,115 @@ export default function Home() {
                             </DrawerFooter>
                         </DrawerContent>
                     </Drawer>
-
-
                 </div>
             </div>
             <div className="flex flex-row items-center  justify-around gap-2 pt-4">
                 <div className={"flex flex-col gap-4 "}>
                     <div className={"flex flex-col gap-2 w-[160px]"}>
-                        <p className={"text-md pl-2"}>DATA</p>
-                        <p className={"text-sm"}>Which dataset do you want to use?</p>
+                        <Dialog>
+                            <DialogTrigger className={"text-start"}>
+                                <p className={"text-md pl-2"}>DATA</p>
+                                <p className={"text-sm"}>Which dataset do you want to use?</p>
+                            </DialogTrigger>
+                            <DialogContent>
+                                <DialogHeader>
+                                    <DialogTitle>Data</DialogTitle>
+                                    <DialogDescription className={"text-black text-[14px]"}>
+                                        This panel lets you control how your dataset is generated and used for training your neural network.
+                                        <br/>
+                                        The choices here affect how well the model can learn and how realistically it reflects real-world conditions.
+                                        <br/>
+                                        <div className={"flex flex-row align-middle gap-1"}>
+                                            <Diamond className={"mt-2 ml-2"} width={10} height={10} color={"indigo"}
+                                                     fill={"indigo"}/>
+                                            <span className={"font-semibold"}>Dataset Selection</span>
+                                        </div>
+                                        <div className={"flex flex-row gap-2"}>
+                                            <Dot/>
+                                            Choose a pattern of points that defines how data is spread across the space.
+                                        </div>
+                                        <div className={"flex flex-row gap-2"}>
+                                            <Dot/>
+                                            <span className={"font-semibold"}>Plane:</span>
+                                            A simple, flat distribution of points, often linearly separable.
+                                            Ideal for testing basic models or understanding core behaviors like overfitting and underfitting.
+                                            Great starting point for beginners or when testing different feature combinations and learning parameters.
+                                        </div>
+                                        <div className={"flex flex-row gap-2"}>
+                                            <Dot/>
+                                            <span className={"font-semibold"}>Multi</span><span className={"font-semibold"}>gaussian:</span>
+                                            A simple, flat distribution of points, often linearly separable.
+                                            Ideal for testing basic models or understanding core behaviors like overfitting and underfitting.
+                                            Great starting point for beginners or when testing different feature combinations and learning parameters.
+                                        </div>
+
+                                        <div className={"flex flex-row align-middle gap-2"}>
+                                            <Diamond className={"mt-2 ml-2"} width={10} height={10} color={"indigo"}
+                                                     fill={"indigo"}/>
+                                            <span className={"font-semibold"}>Ratio of Training to Test Data</span>
+                                        </div>
+                                        <div className={"flex flex-row gap-2"}>
+                                            <Dot/>
+                                            Controls how much of your data is used to train the model versus how much is used to test it.
+                                        </div>
+                                        <div className={"flex flex-row gap-2"}>
+                                            <Dot/>
+                                            Example: 40% means 40% training and 60% testing.
+                                        </div>
+                                        <div className={"flex flex-row gap-2"}>
+                                            <Dot/>
+                                            A higher training ratio can help learning, but too high means less data to evaluate performance.
+                                        </div>
+
+                                        <div className={"flex flex-row align-middle gap-2"}>
+                                            <Diamond className={"mt-2 ml-2"} width={10} height={10} color={"indigo"}
+                                                     fill={"indigo"}/>
+                                            <span className={"font-semibold"}>Noise</span>
+                                        </div>
+                                        <div className={"flex flex-row gap-2"}>
+                                            <Dot/>
+                                            Adds random variation to the data.
+                                        </div>
+                                        <div className={"flex flex-row gap-2"}>
+                                            <Dot/>
+                                            Simulates real-world imperfections or measurement errors.
+                                        </div>
+                                        <div className={"flex flex-row gap-2"}>
+                                            <Dot/>
+                                            Higher noise = messier data = harder learning challenge.
+                                        </div>
+                                        <div className={"flex flex-row gap-2"}>
+                                            <Dot/>
+                                            Useful for testing model robustness.
+                                        </div>
+
+                                        <div className={"flex flex-row align-middle gap-2"}>
+                                            <Diamond className={"mt-2 ml-2"} width={10} height={10} color={"indigo"}
+                                                     fill={"indigo"}/>
+                                            <span className={"font-semibold"}>Batch Size</span>
+                                        </div>
+                                        <div className={"flex flex-row gap-2"}>
+                                            <Dot/>
+                                            Determines how many examples are shown to the model at once during each training step.
+                                        </div>
+                                        <div className={"flex flex-row gap-2"}>
+                                            <Dot/>
+                                            Small batch sizes = noisier but more frequent updates.
+                                        </div>
+                                        <div className={"flex flex-row gap-2"}>
+                                            <Dot/>
+                                            Large batch sizes = more stable learning but slower updates.
+                                        </div>
+                                        <div className={"flex flex-row gap-2"}>
+                                            <Dot/>
+                                            Example: 21 means the model processes 21 samples at a time.
+                                        </div>
+                                    </DialogDescription>
+                                </DialogHeader>
+                            </DialogContent>
+                        </Dialog>
+
+
                         <div className={"flex flex-wrap gap-3 w-[100px] pl-2"}>
                             <Button className={" rounded-full px-4.5 hover:bg-indigo-300"}></Button>
                             <Button className={" rounded-full px-4.5 hover:bg-indigo-300"}></Button>
@@ -455,3 +564,4 @@ export default function Home() {
     );
 }
 ///
+
