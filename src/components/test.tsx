@@ -12,7 +12,7 @@ import ReactFlow, {
 
 import 'reactflow/dist/style.css';
 import { BackgroundVariant } from '@xyflow/react';
-import {Diamond, Dot, Minus, Plus} from 'lucide-react';
+import {ArrowDownNarrowWide, ArrowUpWideNarrow, Diamond, Dot, Minus, Plus} from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
     Dialog,
@@ -22,6 +22,8 @@ import {
     DialogTitle,
     DialogTrigger
 } from "@/components/ui/dialog";
+import {ScrollArea} from "@/components/ui/scroll-area";
+import {Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow} from "@/components/ui/table";
 
 type NodeData = any;
 
@@ -407,7 +409,142 @@ function NeuralNetworkEditor() {
                                 className="rounded-full h-10 bg-indigo-950 hover:bg-indigo-600 text-white">
                             <Plus className="text-white"/>
                         </Button>
-                        <p className={"text-md self-center"}>HIDDEN LAYERS</p>
+
+                        <Dialog>
+                            <DialogTrigger className={"text-start"}>
+                                <p className={"text-md self-center"}>HIDDEN LAYERS</p>
+                            </DialogTrigger>
+                            <DialogContent>
+                                <DialogHeader>
+                                    <DialogTitle> Hidden Layers</DialogTitle>
+                                    <DialogDescription className={"text-black text-[14px]"}>
+                                        <ScrollArea className={"h-[400px]"}>
+                                            <br/><ArrowDownNarrowWide color={"gray"} className={"float-right mr-2"}/>
+                                            <span className={"font-semibold"}>How does a neural network “think”?</span><br/>
+                                            Hidden layers are where the real learning happens.
+                                            <br/>
+                                            They transform the input features into more abstract representations - layer by layer - to solve complex problems.
+                                            <br/><br/>
+                                            <div className={"flex flex-col gap-1"}>
+                                                <div className={"flex flex-row align-middle gap-1 "}>
+                                                    <Diamond className={"mt-2 ml-2"} width={10} height={10} color={"indigo"}
+                                                             fill={"indigo"}/>
+                                                    <span className={"font-semibold"}>What is a Hidden Layer?</span>
+                                                </div>
+                                                <div className={"flex flex-row gap-2"}>
+                                                    <Dot/>
+                                                    A hidden layer is a group of neurons that sits between the input and output layers.
+                                                </div>
+                                                <div className={"flex flex-row gap-2"}>
+                                                    <Dot/>
+                                                    Each neuron receives inputs, applies a weight, adds a bias, and passes the result through an activation function.
+                                                </div>
+                                                <div className={"flex flex-row gap-2"}>
+                                                    <Dot/>
+                                                    The connections between layers allow the network to learn patterns in the data.
+                                                </div>
+                                                <br/>
+                                                <div className={"flex flex-row align-middle gap-2"}>
+                                                    <Diamond className={"mt-2 ml-2"} width={10} height={10} color={"indigo"}
+                                                             fill={"indigo"}/>
+                                                    <span className={"font-semibold"}> Customizing the Architecture</span>
+                                                </div>
+                                                You can fully customize the shape of your neural network:
+                                                <div className={"flex flex-row gap-2"}>
+                                                    <Dot/>
+                                                    Up to 6 hidden layers
+                                                </div>
+                                                <div className={"flex flex-row gap-2"}>
+                                                    <Dot/>
+                                                    Up to 8 neurons per layer
+                                                </div>
+                                                This gives you control over the network’s capacity (how much it can learn) and complexity (how deep the representation goes).
+
+                                                <Table>
+                                                    <TableHeader>
+                                                        <TableRow>
+                                                            <TableHead className="w-[230px]">Setting</TableHead>
+                                                            <TableHead className="text-left">Description</TableHead>
+                                                        </TableRow>
+                                                    </TableHeader>
+                                                    <TableBody>
+                                                            <TableRow>
+                                                                <TableCell>
+                                                                    <div className={"flex flex-row gap-2"}>
+                                                                        <Plus color={"indigo"}/>Add Layer
+                                                                    </div>
+                                                                </TableCell>
+                                                                <TableCell>
+                                                                    Adds a new layer to increase model depth (more abstraction).
+                                                                </TableCell>
+                                                            </TableRow>
+                                                        <TableRow>
+                                                            <TableCell>
+                                                                <div className={"flex flex-row gap-2"}>
+                                                                    <Minus color={"indigo"}/>Remove Layer
+                                                                </div>
+                                                            </TableCell>
+                                                            <TableCell>
+                                                                Reduces depth, simplifying the model and reducing computation.
+                                                            </TableCell>
+                                                        </TableRow>
+                                                        <TableRow>
+                                                            <TableCell>
+                                                                <div className={"flex flex-row gap-2"}>
+                                                                    <Plus color={"indigo"}/>/
+                                                                    <Minus color={"indigo"}/>Neurons
+                                                                </div>
+                                                            </TableCell>
+                                                            <TableCell>
+                                                                Increase or decrease the number of neurons in a specific layer (more neurons = more feature capacity).
+                                                            </TableCell>
+                                                        </TableRow>
+                                                    </TableBody>
+                                                </Table>
+                                                <br/>
+                                                <div className={"flex flex-row align-middle gap-2"}>
+                                                    <Diamond className={"mt-2 ml-2"} width={10} height={10} color={"indigo"}
+                                                             fill={"indigo"}/>
+                                                    <span className={"font-semibold"}>Visual Feedback</span>
+                                                </div>
+                                                <div className={"flex flex-row gap-2"}>
+                                                    <Dot/>
+                                                    Line Thickness: Represents the strength (weight) of the connection.
+                                                </div>
+                                                <div className={"flex flex-row gap-2"}>
+                                                    <Dot/>
+                                                    Color: Blue = negative weight, Orange = positive weight.
+                                                </div>
+                                                <div className={"flex flex-row gap-2"}>
+                                                    <Dot/>
+                                                    The way the connections thicken or thin over time shows you how the network is learning to emphasize or ignore certain paths.
+                                                </div>
+                                                <br/>
+                                                <div className={"flex flex-row align-middle gap-2"}>
+                                                    <Diamond className={"mt-2 ml-2"} width={10} height={10} color={"indigo"}
+                                                             fill={"indigo"}/>
+                                                    <span className={"font-semibold"}> Tips for Experimenting:</span>
+                                                </div>
+                                                <div className={"flex flex-row gap-2"}>
+                                                    <Dot/>
+                                                    Use fewer layers for simple datasets (like the Plane).
+                                                </div>
+                                                <div className={"flex flex-row gap-2"}>
+                                                    <Dot/>
+                                                    Use more layers and neurons for complex data (like Multi-Gaussian).
+                                                </div>
+                                                <div className={"flex flex-row gap-2"}>
+                                                    <Dot/>
+                                                    Too many layers or neurons without regularization can lead to overfitting.
+                                                </div>
+                                            </div>
+                                                <br/><ArrowUpWideNarrow color={"gray"} className={"float-right mr-2"}/>
+                                        </ScrollArea>
+                                    </DialogDescription>
+                                </DialogHeader>
+                            </DialogContent>
+                        </Dialog>
+
                         <Button onClick={() => deleteLayer()}
                                 className="rounded-full h-10 bg-indigo-950 hover:bg-indigo-600 text-white">
                             <Minus className="text-white"/>
@@ -439,5 +576,4 @@ function NeuralNetworkEditor() {
 
 export default NeuralNetworkEditor;
 
-///
-
+////
