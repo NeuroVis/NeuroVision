@@ -5,7 +5,7 @@ import Image from "next/image";
 import {Button} from "@/components/ui/button";
 import {Brain, Diamond, Dot, Minus, Play, Plus, RotateCcw, SkipForward, Zap} from "lucide-react";
 import Scrollable from "@/components/scrollable";
-import NeuralNetworkEditor from "@/components/test";
+import NeuralNetworkEditor from "@/components/network-playground";
 import {
     Drawer, DrawerClose,
     DrawerContent,
@@ -14,7 +14,6 @@ import {
     DrawerTitle,
     DrawerTrigger
 } from "@/components/ui/drawer";
-import {Popover, PopoverContent, PopoverTrigger} from "@/components/ui/popover";
 import {
     Dialog,
     DialogContent,
@@ -564,4 +563,6 @@ export default function Home() {
     );
 }
 ///
+
+
 

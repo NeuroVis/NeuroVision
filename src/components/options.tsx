@@ -9,6 +9,7 @@ import {
     SelectValue
 } from "@/components/ui/select";
 import {HoverCard, HoverCardContent, HoverCardTrigger} from "@/components/ui/hover-card";
+import {isTopLayer} from "@floating-ui/utils/dom";
 
 export default function Option({title, items}:{title:string, items:string[]}): React.ReactElement {
     return (
