@@ -1,6 +1,6 @@
 import Option from '@/components/options';
 import { usePlaygroundContext } from '@/lib/playground-context';
-import {Activation, ProblemType, Regularization} from '@/data/network-types';
+import { Activation, Regularization } from '@/data/network-types';
 
 export function NetworkConfigOptions() {
   const {
@@ -11,9 +11,7 @@ export function NetworkConfigOptions() {
     regularization,
     setRegularization,
     regularizationRate,
-    setRegularizationRate,
-    problemType,
-    setProblemType
+    setRegularizationRate
   } = usePlaygroundContext();
 
   return (
@@ -50,26 +48,9 @@ export function NetworkConfigOptions() {
       />
       <Option
         title='Regularization rate'
-        items={[
-          0,
-          0.001,
-          0.01,
-          0.1,
-          1,
-          0.003,
-          0.03,
-          0.3,
-          3,
-          10
-        ]}
+        items={[0, 0.001, 0.01, 0.1, 1, 0.003, 0.03, 0.3, 3, 10]}
         selectedItem={regularizationRate}
         setSelectedItem={setRegularizationRate}
-      />
-      <Option
-        title='Problem type'
-        items={['Classification', 'Regression'] as ProblemType[]}
-        selectedItem={problemType}
-        setSelectedItem={setProblemType}
       />
     </div>
   );

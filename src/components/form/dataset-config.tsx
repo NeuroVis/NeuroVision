@@ -13,20 +13,46 @@ export function DatasetConfig() {
   } = usePlaygroundContext();
 
   return (
-    <div className={'flex flex-col gap-4'}>
-      <div className={'flex w-[160px] flex-col gap-2'}>
-        <p className={'text-md pl-2'}>Data</p>
-        <p className={'text-sm'}>Which dataset do you want to use?</p>
-        <div className={'flex w-[100px] flex-wrap gap-3 pl-2'}>
-          <Button className={'rounded-full px-4.5 hover:bg-indigo-300'} />
-          <Button className={'rounded-full px-4.5 hover:bg-indigo-300'} />
+    <div className='flex flex-col gap-4'>
+      <div className='flex w-[160px] flex-col gap-2'>
+        <p className='text-md pl-2'>Data</p>
+        <p className='text-sm'>Which dataset do you want to use?</p>
+        <div className='flex w-[100px] flex-wrap gap-3 pl-2'>
+          <div className='flex flex-col items-center gap-1'>
+            <img
+              className='h-10 w-10 cursor-pointer rounded-full hover:brightness-50'
+              src='/circle.png'
+              alt='img'
+            />
+          </div>
+          <div className='flex flex-col items-center gap-1'>
+            <img
+              className='h-10 w-10 cursor-pointer rounded-full hover:brightness-50'
+              src='/circle.png'
+              alt='img'
+            />
+          </div>
+          <div className='flex flex-col items-center gap-1'>
+            <img
+              className='h-10 w-10 cursor-pointer rounded-full hover:brightness-50'
+              src='/circle.png'
+              alt='img'
+            />
+          </div>
+          <div className='flex cursor-pointer flex-col items-center gap-1 hover:brightness-50'>
+            <img
+              className='h-10 w-10 rounded-full'
+              src='/circle.png'
+              alt='img'
+            />
+          </div>
         </div>
       </div>
       <CustomSlider
         value={trainingRatio}
         setValue={setTrainingRatio}
         text1='Ratio of training to test data: '
-        text2={'%'}
+        text2='%'
         min={10}
         max={90}
         defval={10}
@@ -35,7 +61,7 @@ export function DatasetConfig() {
       <CustomSlider
         value={noise}
         setValue={setNoise}
-        text1={'Noise: '}
+        text1='Noise: '
         min={0}
         max={50}
         defval={0}
@@ -44,13 +70,13 @@ export function DatasetConfig() {
       <CustomSlider
         value={batchSize}
         setValue={setBatchSize}
-        text1={'Batch size: '}
+        text1='Batch size: '
         min={1}
         max={30}
         defval={1}
         step={1}
       />
-      <Button className={'w-[170px] rounded-full'}>Regenerate</Button>
+      <Button className='w-[170px] rounded-full'>Regenerate</Button>
     </div>
   );
 }

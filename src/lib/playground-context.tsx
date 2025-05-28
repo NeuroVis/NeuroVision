@@ -2,23 +2,26 @@
 
 import {
   createContext,
+  Dispatch,
   ReactNode,
   RefObject,
+  SetStateAction,
   useCallback,
   useContext,
   useEffect,
-  useRef
+  useRef,
+  useState
 } from 'react';
 import { Activation, ProblemType, Regularization } from '@/data/network-types';
 import { useMultiState } from '@/lib/use-multi-state';
 import { useNeuralNetwork } from '@/lib/network-reducer';
 import { createFFNN } from '@/lib/generate-model';
 import * as tf from '@tensorflow/tfjs';
-import { classifyTwoGaussData } from '@/lib/generate-data';
+import { classifyXORData } from '@/lib/generate-data';
 
 type InitialState = typeof initialState;
 
-export const dataPoints = classifyTwoGaussData(50, 0.5).map((el) => {
+export const dataPoints = classifyXORData(150, 0).map((el) => {
   return {
     x: el.x * 10 + 60,
     y: el.y * 10 + 60,
@@ -30,6 +33,8 @@ export type PlaygroundContextInterface = ReturnType<
   typeof useMultiState<InitialState>
 > &
   ReturnType<typeof useNeuralNetwork> & {
+    losses: number[];
+    setLosses: Dispatch<SetStateAction<number[]>>;
     onPlay: () => void;
     onSkipForward: () => void;
     onReset: () => void;
@@ -113,6 +118,8 @@ export function PlaygroundContextProvider({
     networkReducer.hiddenLayers
   ]);
 
+  const [losses, setLosses] = useState<number[]>([]);
+
   useEffect(() => {
     rebuildModel();
   }, [rebuildModel]);
@@ -133,6 +140,8 @@ export function PlaygroundContextProvider({
 
       runningRef.current = true;
 
+      const lo: number[] = [];
+
       for (let i = 0; i < 1000 && runningRef.current; i++) {
         const history = await modelRef.current.fit(xs, ys, {
           batchSize: state.batchSize,
@@ -143,9 +152,11 @@ export function PlaygroundContextProvider({
 
         const loss = history.history.loss?.[0] as number;
 
-        console.log(loss);
+        lo.push(loss);
 
-        state.setEpoch((prev) => prev + 1);
+        state.setEpoch(i);
+        state.setTrainLoss(loss);
+        setLosses(lo);
 
         await tf.nextFrame();
       }
@@ -154,9 +165,7 @@ export function PlaygroundContextProvider({
     trainLoop();
   }
 
-  const onSkipForward = useCallback(() => {
-    console.log('Skip forward');
-  }, []);
+  const onSkipForward = useCallback(() => {}, []);
 
   const onReset = useCallback(() => {
     runningRef.current = false;
@@ -172,7 +181,9 @@ export function PlaygroundContextProvider({
         onSkipForward,
         onReset,
         modelRef,
-        rebuildModel
+        rebuildModel,
+        losses,
+        setLosses
       }}
     >
       {children}

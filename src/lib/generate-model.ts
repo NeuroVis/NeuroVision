@@ -69,3 +69,37 @@ export function createFFNN(params: FFNNParams): tf.LayersModel {
 
   return model;
 }
+
+export function getFFNNWeights(model: tf.LayersModel): number[][][] {
+  const weightStructure: number[][][] = [];
+
+  for (const layer of model.layers) {
+    const weights = layer.getWeights(); // [kernel, bias]
+    if (weights.length === 2) {
+      const [kernel, bias] = weights;
+
+      const kernelData = kernel.dataSync(); // flat Float32Array
+      const biasData = bias.dataSync(); // flat Float32Array
+
+      const [inputDim, outputDim] = kernel.shape;
+
+      const layerNodeWeights: number[][] = [];
+
+      for (let i = 0; i < outputDim; i++) {
+        const nodeWeights: number[] = [];
+
+        for (let j = 0; j < inputDim; j++) {
+          // kernel is [inputDim, outputDim], accessed column-wise
+          nodeWeights.push(kernelData[j * outputDim + i]);
+        }
+
+        nodeWeights.push(biasData[i]); // Append bias for this node
+        layerNodeWeights.push(nodeWeights);
+      }
+
+      weightStructure.push(layerNodeWeights);
+    }
+  }
+
+  return weightStructure;
+}

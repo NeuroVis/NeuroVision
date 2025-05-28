@@ -14,8 +14,8 @@ export function generateInputNodes(
   return inputNodes.map((node, index) => ({
     id: node.id,
     position: { x: 0, y: spaceBetweenNodes * (index + 1) },
-    targetPosition: Position.Left,
     sourcePosition: Position.Right,
+    targetPosition: Position.Right,
     data: {
       label: node.feature,
       onClick() {
@@ -44,8 +44,8 @@ export function generateOutputNodes(
       y: (index + 1) * spaceBetweenNodes
     },
     targetPosition: Position.Left,
-    sourcePosition: Position.Right,
-    data: { label: `Output ${index + 1}` },
+    sourcePosition: Position.Left,
+    data: { label: `Out` },
     style: {
       borderRadius: '1000px',
       width: '40px',
@@ -59,7 +59,8 @@ export function generateOutputNodes(
 export function generateHiddenLayers(
   hiddenLayers: HiddenLayers,
   addNodeToLayer: (layer: string) => void,
-  deleteNodeFromLayer: (layer: string) => void
+  deleteNodeFromLayer: (layer: string) => void,
+  activations: number[][][]
 ): Node[] {
   return hiddenLayers.flatMap((layer, layerIndex) => {
     const layerX = (layerIndex + 1) * spaceBetweenLayers;
@@ -80,7 +81,15 @@ export function generateHiddenLayers(
       ...layer.nodes.flatMap((node, nodeIndex) => {
         const yPosition = (nodeIndex + 1) * spaceBetweenNodes;
 
-        return createNode(node.id, layerX, yPosition, '2');
+        return createNode(
+          node.id,
+          layerX,
+          yPosition,
+          (
+            activations[layerIndex][nodeIndex]?.reduce((x, S) => x + S, 0) /
+            activations[layerIndex][nodeIndex]?.length
+          ).toFixed(2)
+        );
       }),
       createNode(
         `placeholder-${layerIndex}`,
@@ -100,18 +109,19 @@ export function generateHiddenLayers(
   });
 }
 
-export function generateEdges(layers: string[][]) {
+export function generateEdges(layers: string[][], activations: number[][][]) {
   const edges: Edge[] = [];
-  for (let i = 0; i < layers.length - 1; i++) {
+  for (let i = 1; i < layers.length; i++) {
     for (let a = 0; a < layers[i].length; a++) {
       const sourceId = layers[i][a];
-      for (let b = 0; b < layers[i + 1].length; b++) {
+      for (let b = 0; b < layers[i - 1].length; b++) {
         edges.push(
           createEdge(
-            `e-${sourceId}-${layers[i + 1][b]}`,
+            `e-${sourceId}-${layers[i - 1][b]}`,
+            layers[i - 1][b],
             sourceId,
-            layers[i + 1][b],
-            true
+            true,
+            activations[i]?.[a]?.[b] || 1
           )
         );
       }

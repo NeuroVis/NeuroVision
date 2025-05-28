@@ -7,9 +7,24 @@ import { dataPoints, usePlaygroundContext } from '@/lib/playground-context';
 const WIDTH = 120;
 const HEIGHT = 120;
 
+const ratio = 320 / 120;
+
 export function ResultMap() {
   const { epoch, modelRef } = usePlaygroundContext();
   const ref = useRef<HTMLCanvasElement>(null);
+  const ref2 = useRef<HTMLCanvasElement>(null);
+
+  useEffect(() => {
+    const canvas = ref2.current;
+    const ctx = canvas?.getContext('2d')!;
+
+    for (const point of dataPoints) {
+      ctx.fillStyle = point.label === -1 ? 'yellow' : 'green';
+      ctx.beginPath();
+      ctx.arc(point.x * ratio, point.y * ratio, 3, 0, 2 * Math.PI);
+      ctx.fill();
+    }
+  }, []);
 
   async function renderPredictionGrid(model: tf.LayersModel) {
     if (!ref.current) return;
@@ -31,22 +46,25 @@ export function ResultMap() {
 
       for (let i = 0; i < probs.length; i++) {
         const prob = probs[i];
-        const color = prob > 0.5 ? [255, 100, 100] : [100, 100, 255];
+
+        const t = (prob - 0.3) / 0.4;
+
+        const color =
+          prob > 0.3 && prob < 0.7
+            ? [100 + 155 * t, 100, 255 - 155 * t]
+            : prob > 0.5
+              ? [255, 100, 100]
+              : [100, 100, 255];
 
         const index = i * 4;
-        imageData.data[index] = color[0]; // R
-        imageData.data[index + 1] = color[1]; // G
-        imageData.data[index + 2] = color[2]; // B
-        imageData.data[index + 3] = 255; // A
+        imageData.data[index] = color[0];
+        imageData.data[index + 1] = color[1];
+        imageData.data[index + 2] = color[2];
+        imageData.data[index + 3] = 255;
       }
 
       ctx.putImageData(imageData, 0, 0);
     });
-
-    for (const point of dataPoints) {
-      ctx.fillStyle = point.label === -1 ? 'yellow' : 'green';
-      ctx.fillRect(point.x, point.y, 2, 2);
-    }
   }
 
   useEffect(() => {
@@ -54,38 +72,20 @@ export function ResultMap() {
     if (model) renderPredictionGrid(model);
   }, [epoch]);
 
-  const handleClick = (e: React.MouseEvent<HTMLCanvasElement>) => {
-    const canvas = ref.current;
-    if (!canvas || !modelRef.current) return;
-
-    const rect = canvas.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-
-    const input = [x, y];
-    const inputTensor = tf.tensor2d([input]);
-    const prediction = modelRef.current.predict(inputTensor) as tf.Tensor;
-
-    prediction.data().then((value) => {
-      const prob = value[0];
-      const predictedClass = prob > 0.5 ? 1 : -1;
-
-      const ctx = canvas.getContext('2d')!;
-      ctx.beginPath();
-      ctx.arc(x, y, 4, 0, 2 * Math.PI);
-      ctx.strokeStyle = predictedClass === 1 ? 'red' : 'blue';
-      ctx.lineWidth = 2;
-      ctx.stroke();
-    });
-  };
-
   return (
-    <canvas
-      ref={ref}
-      width={WIDTH}
-      height={HEIGHT}
-      onClick={handleClick}
-      className='h-80 w-80 cursor-pointer border'
-    />
+    <div className='relative'>
+      <canvas
+        ref={ref}
+        width={WIDTH}
+        height={HEIGHT}
+        className='h-80 w-80 cursor-pointer border'
+      />
+      <canvas
+        ref={ref2}
+        width={320}
+        height={320}
+        className='absolute top-0 left-0 h-80 w-80 cursor-pointer border'
+      />
+    </div>
   );
 }

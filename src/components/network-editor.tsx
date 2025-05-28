@@ -2,14 +2,7 @@
 
 import React from 'react';
 import '@xyflow/react/dist/style.css';
-import {
-  Background,
-  BackgroundVariant,
-  type Edge,
-  ReactFlow
-} from '@xyflow/react';
-import { HiddenLayer } from '@/types';
-import { createEdge } from '@/lib/network-utils';
+import { Background, BackgroundVariant, ReactFlow } from '@xyflow/react';
 import { NetworkConfig } from '@/data/network-types';
 import { PlaceholderNode } from '@/components/nodes/placeholder-node';
 import { LayerControlNode } from '@/components/nodes/layer-control-node';
@@ -21,36 +14,12 @@ import {
   generateInputNodes,
   generateOutputNodes
 } from '@/lib/generate-network';
+import { getFFNNWeights } from '@/lib/generate-model';
 
 const nodeTypes = {
   placeholder: PlaceholderNode,
   layerControl: LayerControlNode
 };
-
-function generateEdgesFromLayers(
-  layers: HiddenLayer[],
-  activeNodeIds: string[]
-) {
-  const edges: Edge[] = [];
-  for (let i = 0; i < layers.length - 1; i++) {
-    for (let a = 0; a < layers[i].nodes.length; a++) {
-      const sourceId = layers[i].nodes[a].id;
-      if (i === 0 && activeNodeIds.includes(sourceId)) continue;
-      for (let b = 0; b < layers[i + 1].nodes.length; b++) {
-        edges.push(
-          createEdge(
-            `e-${sourceId}-${layers[i + 1].nodes[b].id}`,
-            sourceId,
-            layers[i + 1].nodes[b].id,
-            true
-          )
-        );
-      }
-    }
-  }
-
-  return edges;
-}
 
 function NeuralNetworkEditor({ config }: { config?: NetworkConfig }) {
   const {
@@ -61,8 +30,11 @@ function NeuralNetworkEditor({ config }: { config?: NetworkConfig }) {
     deleteLayer,
     addNodeToLayer,
     deleteNodeFromLayer,
-    toggleInputNode
+    toggleInputNode,
+    modelRef
   } = usePlaygroundContext();
+
+  const activations = getFFNNWeights(modelRef.current!);
 
   return (
     <div>
@@ -86,14 +58,20 @@ function NeuralNetworkEditor({ config }: { config?: NetworkConfig }) {
             ...generateHiddenLayers(
               hiddenLayers,
               addNodeToLayer,
-              deleteNodeFromLayer
+              deleteNodeFromLayer,
+              activations
             )
           ]}
-          edges={generateEdges([
-            inputNodes.filter((node) => node.enabled).map((node) => node.id),
-            ...hiddenLayers.map((layer) => layer.nodes.map((node) => node.id)),
-            outputNodes.map((node) => node.id)
-          ])}
+          edges={generateEdges(
+            [
+              inputNodes.filter((node) => node.enabled).map((node) => node.id),
+              ...hiddenLayers.map((layer) =>
+                layer.nodes.map((node) => node.id)
+              ),
+              outputNodes.map((node) => node.id)
+            ],
+            activations
+          )}
           nodeTypes={nodeTypes}
           zoomOnScroll={false}
           zoomOnPinch={false}

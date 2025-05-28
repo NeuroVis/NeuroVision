@@ -8,6 +8,7 @@ import NeuralNetworkEditor from '@/components/network-editor';
 import { NetworkOutput } from '@/components/form/network-output';
 import { ResultMap } from '@/components/result-map';
 import { PlaygroundContextProvider } from '@/lib/playground-context';
+import { LossChart } from '@/components/loss-chart';
 
 export default function NetworkPlayground({ config }: { config?: any }) {
   return (
@@ -25,7 +26,10 @@ export default function NetworkPlayground({ config }: { config?: any }) {
             </ReactFlowProvider>
           </div>
           <NetworkOutput />
-          <ResultMap />
+          <div>
+            <LossChart />
+            <ResultMap />
+          </div>
         </div>
       </div>
     </PlaygroundContextProvider>
