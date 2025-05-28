@@ -1,4 +1,4 @@
-import { type Edge, Node, Position } from 'reactflow';
+import { type Edge, Node, Position } from '@xyflow/react';
 
 export function createNode(
   id: string,
@@ -13,8 +13,7 @@ export function createNode(
     position: { x, y },
     data: { label, ...extraData },
     targetPosition: Position.Left,
-    sourcePosition: Position.Right,
-
+    sourcePosition: Position.Right
   };
   if (!type || type === 'initialLayer') {
     node.style = {
@@ -25,8 +24,9 @@ export function createNode(
       background: extraData.isPlaceholder
         ? '#eee'
         : extraData.isActive
-          ? '#4ade80'
-          : '#ddd'
+          ? '#3729AC'
+          : '#ddd',
+      color: extraData.isPlaceholder || !extraData.isActive ? '#000' : '#ddd'
     };
   } else {
     node.type = type;
@@ -35,6 +35,11 @@ export function createNode(
   return node;
 }
 
-export function createEdge(id: string, source: string, target: string, animated: boolean): Edge {
+export function createEdge(
+  id: string,
+  source: string,
+  target: string,
+  animated: boolean
+): Edge {
   return { id, source, target, animated, type: 'default' };
 }

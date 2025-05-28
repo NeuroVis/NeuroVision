@@ -1,40 +1,41 @@
 export enum Activation {
-    Sigmoid,
-    Tanh,
-    ReLU,
-    LeakyReLU,
-    ELU,
-    SELU,
-    PReLU,
-    SoftPlus,
-    SoftSign
+  Sigmoid = 'Sigmoid',
+  Tanh = 'Tanh',
+  ReLU = 'ReLU',
+  LeakyReLU = 'LeakyReLU',
+  ELU = 'ELU',
+  SELU = 'SELU',
+  PReLU = 'PReLU',
+  SoftPlus = 'SoftPlus',
+  SoftSign = 'SoftSign'
 }
 
 export enum Regularization {
-    L1,
-    L2,
-    None
+  L1 = 'L1',
+  L2 = 'L2',
+  None = 'None'
 }
 
 export enum ProblemType {
-    Classification,
-    Regression
+  Classification = 'Classification',
+  Regression = 'Regression'
 }
 
 export interface Node {
-    weights: number[],
-    bias: number
+  weights: number[];
+  bias: number;
 }
 
-export interface Layer {
-    nodes: Node[]
-}
+export type Layer = Node[];
 
 export interface NetworkConfig {
-    learningRate: number,
-    activation: Activation,
-    regularization: Regularization,
-    regularizationRate: number,
-    problemType: ProblemType,
-    layers: Layer[]
+  learningRate: number;
+  activation: Activation;
+  regularization: Regularization;
+  regularizationRate: number;
+  problemType: ProblemType;
+  layers: number[];
+  inputDim: number;
+  outputDim: number;
+  weights: Layer[];
 }
