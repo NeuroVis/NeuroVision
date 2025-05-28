@@ -6,13 +6,13 @@ import { DatasetConfig } from '@/components/form/dataset-config';
 import { ReactFlowProvider } from '@xyflow/react';
 import NeuralNetworkEditor from '@/components/network-editor';
 import { NetworkOutput } from '@/components/form/network-output';
-import { ResultMap } from '@/components/result-map';
+import { OutputMap } from '@/components/output-map';
 import { PlaygroundContextProvider } from '@/lib/playground-context';
 import { LossChart } from '@/components/loss-chart';
 
-export default function NetworkPlayground({ config }: { config?: any }) {
+export default function NetworkPlayground() {
   return (
-    <PlaygroundContextProvider config={config}>
+    <PlaygroundContextProvider>
       <div>
         <div className='flex justify-around py-1 pt-3 shadow-xl'>
           <PlayPause />
@@ -28,7 +28,7 @@ export default function NetworkPlayground({ config }: { config?: any }) {
           <NetworkOutput />
           <div>
             <LossChart />
-            <ResultMap />
+            <OutputMap />
           </div>
         </div>
       </div>

@@ -74,12 +74,10 @@ const initialState = {
 
 export function PlaygroundContextProvider({
   children,
-  config = {}
 }: {
   children: ReactNode;
-  config?: Partial<InitialState>;
 }) {
-  const state = useMultiState({ ...initialState, ...config });
+  const state = useMultiState(initialState);
   const networkReducer = useNeuralNetwork();
 
   const modelRef = useRef<tf.LayersModel>(

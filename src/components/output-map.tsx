@@ -9,7 +9,7 @@ const HEIGHT = 120;
 
 const ratio = 320 / 120;
 
-export function ResultMap() {
+export function OutputMap() {
   const { epoch, modelRef } = usePlaygroundContext();
   const ref = useRef<HTMLCanvasElement>(null);
   const ref2 = useRef<HTMLCanvasElement>(null);
