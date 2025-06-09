@@ -18,7 +18,7 @@ export function LossChart() {
   const { losses, setLosses } = usePlaygroundContext();
 
   return (
-    <div className='flex flex-col gap-3'>
+    <div className='flex w-full flex-col gap-3'>
       <ChartContainer config={chartConfig}>
         <LineChart
           accessibilityLayer

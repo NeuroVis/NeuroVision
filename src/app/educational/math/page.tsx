@@ -4,6 +4,7 @@ import {
   CodeInline,
   Emphasis,
   Heading,
+  Italics,
   List,
   ListItem,
   Paragraph,
@@ -11,10 +12,10 @@ import {
   SubHeading
 } from '@/components/markdown';
 
-const MathAndMechanics = () => {
+const MathCoreMechanics = () => {
   return (
-    <Section id='math-and-mechanics'>
-      <Heading>10. Math and Mechanics: The Core Concepts</Heading>
+    <Section id='math-core-mechanics'>
+      <Heading>10. Math: The Core Mechanics</Heading>
       <Paragraph>
         While you don't necessarily need to be a math genius to{' '}
         <Emphasis>use</Emphasis> neural networks, understanding the underlying
@@ -113,13 +114,13 @@ const MathAndMechanics = () => {
           (like the loss function, which depends on many weights and biases),
           the gradient is a vector that contains all the partial derivatives.
           Each partial derivative tells us how the loss changes when{' '}
-          <Emphasis>only one</Emphasis> specific weight or bias is slightly
+          <Italics>only one</Italics> specific weight or bias is slightly
           changed, while holding all others constant.
           <CodeBlock>{`∇L(W, b) = [∂L/∂w1, ∂L/∂w2, ..., ∂L/∂wn, ∂L/∂b1, ..., ∂L/∂bm]`}</CodeBlock>
           <List type='ul'>
             <ListItem>
               The gradient vector points in the direction of the{' '}
-              <Emphasis>steepest ascent</Emphasis> of the loss function.
+              <Italics>steepest ascent</Italics> of the loss function.
             </ListItem>
           </List>
         </ListItem>
@@ -139,7 +140,7 @@ const MathAndMechanics = () => {
               <Emphasis>Gradient Descent</Emphasis> then uses these gradients to
               update the weights and biases. To minimize the loss, we move in
               the opposite direction of the gradient (i.e., the direction of
-              steepest <Emphasis>descent</Emphasis>).
+              steepest <Italics>descent</Italics>).
               <CodeBlock>{`parameter = parameter - learning_rate * (gradient of loss with respect to parameter)`}</CodeBlock>
             </ListItem>
           </List>
@@ -157,4 +158,4 @@ const MathAndMechanics = () => {
   );
 };
 
-export default MathAndMechanics;
+export default MathCoreMechanics;

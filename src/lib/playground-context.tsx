@@ -21,14 +21,6 @@ import { classifyXORData } from '@/lib/generate-data';
 
 type InitialState = typeof initialState;
 
-export const dataPoints = classifyXORData(150, 0).map((el) => {
-  return {
-    x: el.x * 10 + 60,
-    y: el.y * 10 + 60,
-    label: el.label
-  };
-});
-
 export type PlaygroundContextInterface = ReturnType<
   typeof useMultiState<InitialState>
 > &
@@ -40,6 +32,9 @@ export type PlaygroundContextInterface = ReturnType<
     onReset: () => void;
     modelRef: RefObject<tf.LayersModel | null>;
     rebuildModel: () => void;
+    dataPointsRef: RefObject<{ x: number; y: number; label: number }[]>;
+    setUpdater: Dispatch<SetStateAction<boolean>>;
+    updater: boolean;
   };
 
 const PlaygroundContext = createContext<PlaygroundContextInterface | null>(
@@ -59,8 +54,8 @@ export function usePlaygroundContext(): PlaygroundContextInterface {
 }
 
 const initialState = {
-  trainingRatio: 20,
-  noise: 20,
+  trainingRatio: 250,
+  noise: 0.04,
   batchSize: 20,
   learningRate: 0.01,
   activation: Activation.ReLU,
@@ -117,6 +112,17 @@ export function PlaygroundContextProvider({
   ]);
 
   const [losses, setLosses] = useState<number[]>([]);
+  const [updater, setUpdater] = useState<boolean>(false);
+
+  const dataPointsRef = useRef(
+    classifyXORData(state.trainingRatio, state.noise).map((el) => {
+      return {
+        x: el.x * 10 + 60,
+        y: el.y * 10 + 60,
+        label: el.label
+      };
+    })
+  );
 
   useEffect(() => {
     rebuildModel();
@@ -126,10 +132,12 @@ export function PlaygroundContextProvider({
 
   function onPlay() {
     const xs = tf.tensor2d(
-      dataPoints.map((p) => [(p.x - 60) / 20, (p.y - 60) / 20])
+      dataPointsRef.current.map((p) => [(p.x - 60) / 20, (p.y - 60) / 20])
     );
 
-    const ys = tf.tensor2d(dataPoints.map((p) => [p.label === 1 ? 1 : 0]));
+    const ys = tf.tensor2d(
+      dataPointsRef.current.map((p) => [p.label === 1 ? 1 : 0])
+    );
 
     async function trainLoop() {
       if (runningRef.current) {
@@ -181,7 +189,10 @@ export function PlaygroundContextProvider({
         modelRef,
         rebuildModel,
         losses,
-        setLosses
+        setLosses,
+        dataPointsRef,
+        updater,
+        setUpdater
       }}
     >
       {children}

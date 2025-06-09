@@ -11,7 +11,7 @@ import {
   Paragraph,
   Section,
   SubHeading
-} from '@/components/markdown'; // Adjust path as needed
+} from '@/components/markdown';
 
 const CoreProcess = () => {
   return (

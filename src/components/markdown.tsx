@@ -1,3 +1,6 @@
+// This file can serve as an index to export all UI components,
+// or you can create individual files for each component.
+
 import React, { ReactNode } from 'react';
 
 export const Heading = ({ children }: { children: ReactNode }) => (
@@ -11,7 +14,7 @@ export const SubHeading = ({
   level = 2
 }: {
   children: ReactNode;
-  level: number;
+  level?: number;
 }) => {
   const Tag = `h${level}`;
   let classes = 'font-semibold text-gray-800 mb-4 mt-8';
@@ -19,6 +22,7 @@ export const SubHeading = ({
   else if (level === 3)
     classes = `text-2xl ${classes} pl-4 border-l-4 border-blue-300`;
   else if (level === 4) classes = `text-xl ${classes} pl-2 text-blue-700`;
+
   // @ts-ignore
   return <Tag className={classes}>{children}</Tag>;
 };

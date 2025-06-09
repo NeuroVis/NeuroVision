@@ -1,3 +1,4 @@
+// src/app/page.jsx
 'use client';
 
 import Link from 'next/link';
@@ -6,7 +7,8 @@ export default function Home() {
   const courseTopics = [
     {
       name: 'Introduction to Neural Networks',
-      path: '/educational/introduction-to-neural-networks'
+      path: '/educational/introduction-to-neural-networks',
+      type: 'course'
     },
     {
       name: 'Network Architecture',

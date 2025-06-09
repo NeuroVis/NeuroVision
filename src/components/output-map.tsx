@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 import * as tf from '@tensorflow/tfjs';
-import { dataPoints, usePlaygroundContext } from '@/lib/playground-context';
+import { usePlaygroundContext } from '@/lib/playground-context';
 
 const WIDTH = 120;
 const HEIGHT = 120;
@@ -10,7 +10,8 @@ const HEIGHT = 120;
 const ratio = 320 / 120;
 
 export function OutputMap() {
-  const { epoch, modelRef } = usePlaygroundContext();
+  const { epoch, modelRef, dataPointsRef, updater, noise, trainingRatio } =
+    usePlaygroundContext();
   const ref = useRef<HTMLCanvasElement>(null);
   const ref2 = useRef<HTMLCanvasElement>(null);
 
@@ -18,13 +19,15 @@ export function OutputMap() {
     const canvas = ref2.current;
     const ctx = canvas?.getContext('2d')!;
 
-    for (const point of dataPoints) {
+    ctx.clearRect(0, 0, canvas!.width, canvas!.height);
+
+    for (const point of dataPointsRef.current) {
       ctx.fillStyle = point.label === -1 ? 'yellow' : 'green';
       ctx.beginPath();
       ctx.arc(point.x * ratio, point.y * ratio, 3, 0, 2 * Math.PI);
       ctx.fill();
     }
-  }, []);
+  }, [updater, noise, trainingRatio]);
 
   async function renderPredictionGrid(model: tf.LayersModel) {
     if (!ref.current) return;

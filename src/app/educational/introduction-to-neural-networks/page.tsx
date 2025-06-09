@@ -5,8 +5,9 @@ import {
   List,
   ListItem,
   Paragraph,
-  Section, SubHeading
-} from '@/components/markdown'; // Adjust path as needed
+  Section,
+  SubHeading
+} from '@/components/markdown';
 
 const IntroductionToNeuralNetworks = () => {
   return (

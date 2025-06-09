@@ -119,11 +119,9 @@ const Regularization = () => {
       <SubHeading level={3}>12.3. Comparison between L1 and L2</SubHeading>
       <Table>
         <TableHeader>
-          <TableRow>
-            <TableHead>Feature</TableHead>
-            <TableHead>L1 Regularization (Lasso)</TableHead>
-            <TableHead>L2 Regularization (Ridge/Weight Decay)</TableHead>
-          </TableRow>
+          <TableHead>Feature</TableHead>
+          <TableHead>L1 Regularization (Lasso)</TableHead>
+          <TableHead>L2 Regularization (Ridge/Weight Decay)</TableHead>
         </TableHeader>
         <TableBody>
           <TableRow>

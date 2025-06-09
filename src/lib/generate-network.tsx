@@ -121,7 +121,7 @@ export function generateEdges(layers: string[][], activations: number[][][]) {
             layers[i - 1][b],
             sourceId,
             true,
-            activations[i]?.[a]?.[b] || 1
+            activations[i]?.[a]?.[b] ?? 1
           )
         );
       }

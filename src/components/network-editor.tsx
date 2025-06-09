@@ -50,7 +50,7 @@ function NeuralNetworkEditor({ config }: { config?: NetworkConfig }) {
           deleteLayer={deleteLayer}
         />
       </div>
-      <div style={{ width: '1000px', height: '450px' }}>
+      <div className='h-[450px] w-full max-w-screen'>
         <ReactFlow
           nodes={[
             ...generateInputNodes(inputNodes, toggleInputNode),

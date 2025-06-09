@@ -15,7 +15,7 @@ export function NetworkConfigOptions() {
   } = usePlaygroundContext();
 
   return (
-    <div className='flex flex-row items-center justify-center gap-2 pt-4'>
+    <div className='flex flex-row items-center justify-center gap-2 pt-4 pb-3'>
       <Option
         title='Learning rate'
         items={[0.00001, 0.0001, 0.001, 0.01, 1, 0.003, 0.03, 0.3, 3, 10]}
