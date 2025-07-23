@@ -12,15 +12,15 @@ import { LossChart } from '@/components/loss-chart';
 
 export default function NetworkPlayground() {
   return (
-    <PlaygroundContextProvider>
+    <PlaygroundContextProvider >
       <div className='pb-20'>
-        <div className='sticky top-[50px] left-0 z-[1000] flex justify-around bg-white py-1 pt-3 shadow-xl'>
+        <div className='sticky top-[50px] left-0 z-[1000] flex justify-around bg-white py-1  shadow-xl'>
           <PlayPause />
           <NetworkConfigOptions />
         </div>
-        <div className='flex flex-col-reverse items-center justify-around gap-2 pt-4 2xl:flex-row'>
+        <div className='flex flex-col-reverse items-center justify-around gap-2 2xl:flex-row'>
           <DatasetConfig />
-          <div className='flex flex-col items-center justify-around gap-2 pt-4 xl:flex-row'>
+          <div className='flex flex-col items-center justify-around gap-2 xl:flex-row'>
             <div className={'flex flex-col justify-center'}>
               <ReactFlowProvider>
                 <NeuralNetworkEditor />

@@ -1,4 +1,3 @@
-// src/app/page.jsx
 'use client';
 
 import Link from 'next/link';
@@ -85,8 +84,8 @@ export default function Home() {
               <div
                 className={`flex h-full transform cursor-pointer flex-col items-center justify-center rounded-xl border p-8 text-center shadow-lg transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl ${
                   topic.type === 'important'
-                    ? 'border-purple-500 bg-gradient-to-br from-purple-600 to-indigo-800 text-3xl font-extrabold text-white' // Special styling for important button
-                    : 'border-gray-200 bg-white text-blue-700' // Default styling for course topics
+                    ? 'border-purple-500 bg-gradient-to-br from-purple-600 to-indigo-800 text-3xl font-extrabold text-white' 
+                    : 'border-gray-200 bg-white text-blue-700'
                 } `}
               >
                 <span

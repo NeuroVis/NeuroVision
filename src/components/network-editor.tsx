@@ -45,7 +45,9 @@ function NeuralNetworkEditor({ config }: { config?: NetworkConfig }) {
         </div>
         <LayerConfig
           addLayer={() => {
-            addLayer();
+            if (hiddenLayers.length < 4) {
+              addLayer();
+            }
           }}
           deleteLayer={deleteLayer}
         />

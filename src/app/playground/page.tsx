@@ -7,5 +7,5 @@ const Playground = dynamic(() => import('../../components/network-playground'), 
 });
 
 export default function PlaygroundWrapper() {
-  return <Playground  />;
+  return <Playground/>;
 }
