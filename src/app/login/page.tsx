@@ -34,10 +34,9 @@ export default function Page() {
   });
 
   async function onSubmit(data: any) {
-    console.log(errors);
     const userid= await login(data.email, data.password);
     if(userid!==null){
-      localStorage.setItem("id", String(userid));
+      localStorage.setItem("token", String(userid));
     }
   }
 

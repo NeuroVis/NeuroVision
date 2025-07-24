@@ -21,7 +21,7 @@ export function NavBar() {
     if (isLoggedIn) {
       router.push('/account');
     } else {
-      router.push('/account');
+      router.push('/register');
     }
   };
 

@@ -49,7 +49,6 @@ export default function Page() {
   const toggleVisibility = () => setIsVisible(!isVisible);
 
   async function onSubmit(data: any) {
-    console.log(errors);
     await registerUser(data.email, data.username, data.password);
   }
 
@@ -68,7 +67,7 @@ export default function Page() {
         <Label className={"pl-1"} htmlFor="passwordRep">Repeat password</Label>
         <div className="relative">
           <Input
-            {...register}
+            {...register("passwordRep")}
             id="passwordRep"
             placeholder="Repeat your password"
             type={isVisible ? "text" : "password"}
