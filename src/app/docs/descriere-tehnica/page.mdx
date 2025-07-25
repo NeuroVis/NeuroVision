@@ -1,0 +1,18 @@
+# Descriere tehnică
+
+### Tehnologii folosite
+
+- NextJS (Framework pentru aplicație)
+- TailwindCSS (Pentru stilizarea site-ului)
+- Lucide React (Pentru iconițe)
+- React XY Flow (Pentru grafuri)
+- PostgreSQL (Baza de date pentru conturi)
+- Drizzle ORM (ORM folosit pentru comunicarea cu baza de date)
+- Tauri (Pentru varianta desktop a site-ului, alternativă la Electron)
+- Nextra (pentru documentație și lecții)
+
+Am ales framework-ul Next.js întrucât este ideal pentru această aplicație, deoarece oferă o combinație eficientă între generarea statică a conținutului (lecții și documentație) prin SSR (server side rendering) și funcționalitatea dinamică necesară pentru partea de playground. Next.js permite dezvoltarea rapidă a interfeței cu suport integrat pentru rutare, API routes și rendering hibrid (static și server-side), ceea ce îl face potrivit pentru astfel de aplicații.
+
+Ca bază de date, am utilizat PostgreSQL, bază de date relațională, datorită structurii aplicației.
+
+Pentru autentificare, utilizăm cookie-uri și tokene JWT. Parolele sunt criptate folosind algoritmul BCrypt cu 10 runde de salting.

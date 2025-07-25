@@ -18,18 +18,25 @@ export function NavBar() {
   }, []);
 
   const handleAccountClick = () => {
-    if (isLoggedIn) {
-      router.push('/account');
-    } else {
-      router.push('/register');
-    }
+    router.push('/register');
   };
 
   return (
-    <div className='sticky top-0 left-0 z-50 flex flex-row items-center gap-2 bg-indigo-800 text-white'>
-      <Link href='/' className='pl-2'>
-        <Home />
-      </Link>
+    <div className='sticky top-0 left-0 z-50 flex-row items-center gap-2 bg-indigo-800 text-white flex'>
+      <div className='flex items-center justify-center'>
+          <Link href='/' className='pl-6'>
+              <Home />
+          </Link>
+          <Link href='/docs' className='pl-6 font-bold'>
+              Docs
+          </Link>
+          <Link href='/community' className='pl-6 font-bold'>
+              Community
+          </Link>
+          <Link href='/chat' className='pl-6 font-bold'>
+              Chat
+          </Link>
+      </div>
       <Link
         href='/'
         className='flex w-full flex-row items-center justify-center gap-2 text-white'
